@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:stock_x/config/palette.dart';
 import 'package:stock_x/overview.dart';
 import 'package:stock_x/setting.dart';
 import 'package:stock_x/view_impressum.dart';
 import 'package:stock_x/e_wallet.dart';
+import 'config/palette.dart';
+import 'package:get/get.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -13,9 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 238, 238, 238)),
+    return GetMaterialApp(
+      darkTheme: Palette.darkTheme,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /*
 Die Datei ist für das Bilden
@@ -40,25 +41,15 @@ class Setting extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       child: GlowingOverscrollIndicator(
                           axisDirection: AxisDirection.down,
-                          color: Colors.black,
-                          child: ListTile(
-                              leading: const Icon(
-                                Icons.info_outline,
-                                color: Colors.black,
-                              ),
-                              title: Text(
-                                "Theme Mode",
-                                style: Theme.of(context).textTheme.bodyText2,
-                              ),
-                              onTap: () {
-                                showAboutDialog(
-                                  context: context,
-                                  applicationIcon: const FlutterLogo(),
-                                  applicationLegalese: 'Legalese',
-                                  applicationName: 'App Name',
-                                  applicationVersion: 'version 1.0.0',
-                                );
-                              }))),
+                          color: Colors.grey,
+                          child: IconButton(
+                            icon: const Icon(Icons.lightbulb),
+                            onPressed: () {
+                              Get.isDarkMode
+                                  ? Get.changeTheme(ThemeData.light())
+                                  : Get.changeTheme(ThemeData.dark());
+                            },
+                          ))),
                   Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -73,10 +64,18 @@ class Setting extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               title: Text(
-                                "Informationabouttheapplication",
+                                "Informationen über die Applikation",
                                 style: Theme.of(context).textTheme.bodyText2,
                               ),
-                              onTap: () {}))),
+                              onTap: () {
+                                showAboutDialog(
+                                  context: context,
+                                  applicationIcon: const FlutterLogo(),
+                                  applicationLegalese: 'Legalese',
+                                  applicationName: 'App Name',
+                                  applicationVersion: 'version 1.0.0',
+                                );
+                              }))),
                   const SizedBox(
                     height: 300,
                   ),

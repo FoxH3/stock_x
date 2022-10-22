@@ -43,8 +43,6 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
-    // fetchData();
-    // fetchAktienData();
   }
 
   void _selectScreen(int index) {

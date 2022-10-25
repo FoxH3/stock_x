@@ -4,8 +4,14 @@ import 'package:stock_x/overview.dart';
 import 'package:stock_x/setting.dart';
 import 'package:stock_x/view_impressum.dart';
 import 'package:stock_x/e_wallet.dart';
+import 'config/l10n/l10n.dart';
 import 'config/palette.dart';
-import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'services/provider/locale_provider.dart';
+import 'services/provider/darkmode_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,14 +22,36 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      darkTheme: Palette.darkTheme,
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
-    );
-  }
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LocaleProvider>(
+              create: (_) => LocaleProvider(const Locale("en"))),
+          ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (_) => ThemeProvider()..initialize(),
+          )
+        ],
+        builder: (context, child) {
+          final languageProvider = Provider.of<LocaleProvider>(context);
+          return Consumer<ThemeProvider>(builder: (context, provider, child) {
+            return ScreenUtilInit(
+                builder: ((context, child) => MaterialApp(
+                      theme: Palette.lightTheme,
+                      darkTheme: Palette.darkTheme,
+                      themeMode: provider.themeMode,
+                      locale: languageProvider.locale,
+                      supportedLocales: L10n.all,
+                      localizationsDelegates: const [
+                        //AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate
+                      ],
+                      home: const MyHomePage(),
+                    )),
+                designSize: const Size(360, 690));
+          });
+        },
+      );
 }
 
 class MyHomePage extends StatefulWidget {

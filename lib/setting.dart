@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:stock_x/widgets/darkmode.dart';
 
 /*
 Die Datei ist für das Bilden
@@ -39,17 +39,10 @@ class Setting extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50),
                       ),
                       clipBehavior: Clip.antiAlias,
-                      child: GlowingOverscrollIndicator(
+                      child: const GlowingOverscrollIndicator(
                           axisDirection: AxisDirection.down,
                           color: Colors.grey,
-                          child: IconButton(
-                            icon: const Icon(Icons.lightbulb),
-                            onPressed: () {
-                              Get.isDarkMode
-                                  ? Get.changeTheme(ThemeData.light())
-                                  : Get.changeTheme(ThemeData.dark());
-                            },
-                          ))),
+                          child: Darkmode())),
                   Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),

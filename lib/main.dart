@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stock_x/config/palette.dart';
-import 'package:stock_x/overview.dart';
+import 'package:stock_x/Pages/overview.dart';
 import 'package:stock_x/setting.dart';
-import 'package:stock_x/view_impressum.dart';
-import 'package:stock_x/e_wallet.dart';
+import 'package:stock_x/Pages/impressum.dart';
+import 'package:stock_x/Pages/e_wallet.dart';
 import 'config/l10n/l10n.dart';
 import 'config/palette.dart';
 import 'package:provider/provider.dart';

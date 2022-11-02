@@ -5,6 +5,7 @@ import 'package:stock_x/pop_up.dart';
 Die Datei ist für das Bilden
 der Setting Page in der App
 */
+
 class Wallet extends StatelessWidget {
   const Wallet({Key? key}) : super(key: key);
 
@@ -21,10 +22,6 @@ class Wallet extends StatelessWidget {
               const SizedBox(height: 35),
               Row(
                 children: <Widget>[
-                  // const CircleAvatar(
-                  //   backgroundImage: NetworkImage(
-                  //       "https://jshopping.in/images/detailed/591/ibboll-Fashion-Mens-Optical-Glasses-Frames-Classic-Square-Wrap-Frame-Luxury-Brand-Men-Clear-Eyeglasses-Frame.jpg"),
-                  // ),
                   const SizedBox(width: 5),
                   const Text(
                     "Hello User",
@@ -110,11 +107,6 @@ class Wallet extends StatelessWidget {
         ),
         Text(
           text,
-          // style: GoogleFonts.mulish(
-          //     textStyle: Theme.of(context).textTheme.headline4,
-          //     fontSize: 15,
-          //     fontWeight: FontWeight.w600,
-          //     color: Color(0xff76797e))
         ),
       ],
     );

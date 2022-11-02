@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stock_x/config/palette.dart';
 import 'package:stock_x/Pages/overview.dart';
 import 'package:stock_x/setting.dart';
 import 'package:stock_x/Pages/impressum.dart';
 import 'package:stock_x/Pages/e_wallet.dart';
 import 'config/l10n/l10n.dart';
-import 'config/palette.dart';
 import 'package:provider/provider.dart';
 import 'services/provider/locale_provider.dart';
 import 'services/provider/darkmode_provider.dart';
@@ -71,6 +71,15 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
+    //loadData();
+    // fetchData();
+    // fetchAktienData();
+    // fetchMetallHistData();
+
+//Dies wird als zeitstempel für die Daten verwendet
+    DateTime dateToday = new DateTime.now();
+    String date = dateToday.toString().substring(0, 10);
+    print(DateFormat('dd-MM-yyyy').format(DateTime.now()));
   }
 
   void _selectScreen(int index) {

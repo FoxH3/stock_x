@@ -170,12 +170,6 @@ class BalanceCard extends StatelessWidget {
                         Text(
                           '6,354 gr. ',
                           style: TextStyle(fontSize: 20),
-                          // style:
-                          // GoogleFonts.mulish(
-                          //     textStyle: Theme.of(context).textTheme.headline4,
-                          //     fontSize: 35,
-                          //     fontWeight: FontWeight.w800,
-                          //     color: LightColor.yellow2),
                         ),
                         Text(
                           ' Gold',
@@ -254,5 +248,79 @@ class BalanceCard extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  Widget demoWallet() {
+    return SafeArea(
+        child: SingleChildScrollView(
+      child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 35),
+              Row(
+                children: <Widget>[
+                  const SizedBox(width: 5),
+                  const Text(
+                    "Hello User",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  InkWell(
+                    child: Icon(
+                      Icons.logout,
+                      size: 30,
+                      //  color: Theme.of(context).iconTheme.color,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              const Text("My wallet",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 250,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(188, 33, 149, 243),
+                      blurRadius: 2.0, // soften the shadow
+                      spreadRadius: 2.0, //extend the shadow
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Operationen",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  // _icon(context, Icons.payments_outlined, "Einzahlen"),
+                  // _icon(context, Icons.price_change_outlined, "Betrag ändern"),
+                  // _icon(
+                  //     context, Icons.delete_forever_outlined, "Wallet leeren"),
+                ],
+              ),
+            ],
+          )),
+    ));
   }
 }

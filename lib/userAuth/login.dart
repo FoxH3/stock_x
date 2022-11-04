@@ -38,15 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
+                        children: const <Widget>[
                           //card(buildUser(context, mailController)),
-                          card(buildPassword(passController.text)),
-                          const SizedBox(height: 20),
+                          //  card(buildPassword(passController.text)),
+                          SizedBox(height: 20),
                           //  buildButton("login", login, 250, 20, 15, context),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 10),
                           // buildButton("Kein Account ?", registerNavigate, 150,
                           //   10, 10, context),
-                          const SizedBox(
+                          SizedBox(
                             height: 10,
                           ),
                           // buildButton("Passwort vergessen ?",

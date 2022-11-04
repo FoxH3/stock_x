@@ -38,7 +38,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[],
+                        children: <Widget>[
+                          //card(buildUser(context, mailController)),
+                          card(buildPassword(passController.text)),
+                          const SizedBox(height: 20),
+                          //  buildButton("login", login, 250, 20, 15, context),
+                          const SizedBox(height: 10),
+                          // buildButton("Kein Account ?", registerNavigate, 150,
+                          //   10, 10, context),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // buildButton("Passwort vergessen ?",
+                          //     passForgetNavigate, 120, 10, 10, context),
+                        ],
                       ),
                     )))
           ],
@@ -46,4 +59,70 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  void registerNavigate() {
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => const RegisterScreen()));
+  }
+
+  void passForgetNavigate() {
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => const ForgetPassScreen()));
+  }
+
+  ///Bildet den Passwort-Eingabebereich
+  ///in der Login Page
+  Widget buildPassword(String pass) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        TextFormField(
+          style: const TextStyle(color: Colors.black),
+          obscureText: _showPassword,
+          controller: passController,
+          onChanged: (value) => pass = value,
+          decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() => _showPassword = !_showPassword);
+              },
+              child: Icon(
+                _showPassword ? Icons.visibility : Icons.visibility_off,
+                color: Colors.black,
+              ),
+            ),
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.only(top: 14),
+            prefixIcon: Icon(
+              _showPassword ? Icons.lock_open_outlined : Icons.lock_outline,
+              size: 23,
+              color: Colors.black,
+            ),
+            hintText: "Password",
+            hintStyle: const TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+Widget card(Widget cild) {
+  return Padding(
+    padding: const EdgeInsets.all(20),
+    child: SizedBox(
+        width: double.infinity,
+        child: Card(
+            color: const Color.fromARGB(255, 207, 207, 207),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: GlowingOverscrollIndicator(
+                axisDirection: AxisDirection.down,
+                color: Colors.black,
+                child: SizedBox(child: cild)))),
+  );
 }

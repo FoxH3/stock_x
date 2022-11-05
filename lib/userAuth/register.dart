@@ -66,4 +66,52 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             )));
   }
+
+  ///Bildet den  Passwort-Eingabebereich
+  ///in der Register Page
+  Widget buildPassword(
+      String text, String pass, TextEditingController controller) {
+    return SingleChildScrollView(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+            alignment: Alignment.centerLeft,
+            child: TextFormField(
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+              obscureText: _showPassword,
+              controller: controller,
+              validator: (value) {
+                // return Validator.validatePassword(value!, pass, context);
+              },
+              onChanged: (value) => pass = value,
+              decoration: InputDecoration(
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() => _showPassword = !_showPassword);
+                  },
+                  child: Icon(
+                    _showPassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black,
+                  ),
+                ),
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.only(top: 14),
+                prefixIcon: Icon(
+                    _showPassword
+                        ? Icons.lock_open_outlined
+                        : Icons.lock_outline,
+                    size: 23,
+                    color: Colors.black),
+                hintText: text,
+                hintStyle: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ))
+      ],
+    ));
+  }
 }

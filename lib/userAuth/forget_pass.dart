@@ -2,6 +2,11 @@
 
 import 'package:flutter/material.dart';
 
+/*
+Die Datei ist für das Bilden der Registration-Page
+wo der User sich registrieren kann
+*/
+
 class ForgetPassScreen extends StatefulWidget {
   const ForgetPassScreen({Key? key}) : super(key: key);
 

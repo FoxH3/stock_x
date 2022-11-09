@@ -44,3 +44,31 @@ Widget underAppBar(String pageName, String pageInfo) {
     ),
   );
 }
+
+/// Bildet die Buttons die in der User Pages verwdnet wurden
+Widget buildButton(String text, Function funktion, double width, double padding,
+    double borderRadius, BuildContext context) {
+  return SizedBox(
+      width: width,
+      child: ElevatedButton(
+          style: ButtonStyle(
+              elevation: MaterialStateProperty.all<double>(0.5),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                  EdgeInsets.all(padding)),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                  const Color.fromARGB(255, 207, 207, 207)),
+              shape: MaterialStateProperty.all<OutlinedBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(borderRadius)))),
+          onPressed: () {
+            funktion();
+          },
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Text(
+              text,
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+          )));
+}

@@ -18,3 +18,29 @@ PreferredSizeWidget buildAppBar() {
     centerTitle: true,
   );
 }
+
+Widget underAppBar(String pageName, String pageInfo) {
+  return Padding(
+    padding: const EdgeInsets.all(20),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Center(
+          child: Text(
+            pageName,
+            style: const TextStyle(color: Colors.black, fontSize: 40),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Center(
+          child: Text(
+            pageInfo,
+            style: const TextStyle(color: Colors.black, fontSize: 18),
+          ),
+        )
+      ],
+    ),
+  );
+}

@@ -72,3 +72,27 @@ Widget buildButton(String text, Function funktion, double width, double padding,
             ),
           )));
 }
+
+/// Bildet die Text die in der User Pages verwendet wurde
+Widget buildUser(BuildContext context, TextEditingController userController) {
+  return SingleChildScrollView(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+        TextFormField(
+          controller: userController,
+          style: const TextStyle(color: Colors.black),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.account_box_outlined,
+                color: Colors.black,
+              ),
+              hintText: "E-Mail",
+              hintStyle: TextStyle(
+                color: Colors.black,
+              )),
+        )
+      ]));
+}

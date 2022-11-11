@@ -96,3 +96,14 @@ Widget buildUser(BuildContext context, TextEditingController userController) {
         )
       ]));
 }
+
+/// Bildet die Logo die in der User Pages verwendet wurden
+Widget buildImageLogo(
+    BuildContext context, String imageLink, double width, double height) {
+  return Image.asset(
+    imageLink,
+    width: width,
+    height: height,
+    color: Theme.of(context).colorScheme.onBackground,
+  );
+}

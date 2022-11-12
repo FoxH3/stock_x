@@ -118,3 +118,47 @@ Widget buildText(BuildContext context, String text, double fontSize) {
         fontWeight: FontWeight.bold),
   );
 }
+
+/// Bildet die PupUp fenster die nach der Registeration erschient
+popupRegister(BuildContext context, String userName, String passwort) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          "Erfolgreich Regestriert",
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text(
+                "Automatisch angemeldet",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              "Ok",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal),
+            ),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  );
+}

@@ -107,3 +107,14 @@ Widget buildImageLogo(
     color: Theme.of(context).colorScheme.onBackground,
   );
 }
+
+/// Bildet weitere text die in der User Pages verwendet wurden
+Widget buildText(BuildContext context, String text, double fontSize) {
+  return Text(
+    text,
+    style: TextStyle(
+        color: Theme.of(context).colorScheme.onSurface,
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold),
+  );
+}

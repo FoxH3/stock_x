@@ -12,10 +12,10 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
+          iconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.tertiary,
           ),
-          backgroundColor: const Color.fromARGB(255, 207, 207, 207),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           toolbarHeight: 80,
           elevation: 14,
           shape: const RoundedRectangleBorder(
@@ -52,9 +52,9 @@ class Setting extends StatelessWidget {
                           axisDirection: AxisDirection.down,
                           color: Colors.black,
                           child: ListTile(
-                              leading: const Icon(
+                              leading: Icon(
                                 Icons.account_balance_outlined,
-                                color: Colors.black,
+                                color: Theme.of(context).colorScheme.secondary,
                               ),
                               title: Text(
                                 "Informationen über die Applikation",

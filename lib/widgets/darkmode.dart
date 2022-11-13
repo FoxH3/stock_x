@@ -22,7 +22,7 @@ class DarkmodeState extends State<Darkmode> {
     return ListTile(
       leading: Icon(
         Icons.light_mode_outlined,
-        color: Theme.of(context).colorScheme.onBackground,
+        color: Theme.of(context).colorScheme.secondary,
       ),
       title: Text(
         "ThemeMode", //AppLocalizations.of(context)!.thememode,

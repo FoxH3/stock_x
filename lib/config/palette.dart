@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class Palette with ChangeNotifier {
   static final ThemeData darkTheme = ThemeData(
-      //Platzhalter
-      );
+    colorScheme: const ColorScheme.dark(brightness: Brightness.dark),
+  );
 
   static final ThemeData lightTheme = ThemeData(
-      //Platzhalter
-      );
+    colorScheme: const ColorScheme.light(brightness: Brightness.light),
+  );
 }

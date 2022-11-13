@@ -162,3 +162,11 @@ popupRegister(BuildContext context, String userName, String passwort) {
     },
   );
 }
+
+/// Methode bildet Massage die bsp. bei falsche Passwort erschient
+void massage(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text),
+    backgroundColor: Colors.red,
+  ));
+}

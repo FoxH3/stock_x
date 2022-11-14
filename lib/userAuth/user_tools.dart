@@ -170,3 +170,11 @@ void massage(BuildContext context, String text) {
     backgroundColor: Colors.red,
   ));
 }
+
+///Methode ist für das weiterleiten zu anderen Pages
+void routeToPage(BuildContext context, var page) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => page),
+  );
+}

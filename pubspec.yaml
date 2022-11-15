@@ -28,6 +28,7 @@ dependencies:
   flutter_gen: ^5.0.3
   slider_button: ^2.0.0
   http: ^0.13.5
+  syncfusion_flutter_charts: ^20.3.57
 
 
 dev_dependencies:

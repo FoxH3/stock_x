@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stock_x/config/palette.dart';
-import 'package:stock_x/Pages/overview.dart';
+import 'package:stock_x/pages/overview.dart';
 import 'package:stock_x/setting.dart';
-import 'package:stock_x/Pages/impressum.dart';
-import 'package:stock_x/Pages/e_wallet.dart';
+import 'package:stock_x/pages/impressum.dart';
+import 'package:stock_x/pages/e_wallet.dart';
 import 'config/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 import 'services/provider/locale_provider.dart';

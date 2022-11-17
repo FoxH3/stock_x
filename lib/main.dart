@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:stock_x/Pages/setting.dart';
 import 'package:stock_x/config/palette.dart';
 import 'package:stock_x/pages/overview.dart';
@@ -77,9 +76,9 @@ class MyHomePageState extends State<MyHomePage> {
     // fetchMetallHistData();
 
 //Dies wird als zeitstempel für die Daten verwendet
-    DateTime dateToday = new DateTime.now();
-    String date = dateToday.toString().substring(0, 10);
-    print(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+    // DateTime dateToday = new DateTime.now();
+    // String date = dateToday.toString().substring(0, 10);
+    // print(DateFormat('dd-MM-yyyy').format(DateTime.now()));
   }
 
   void _selectScreen(int index) {

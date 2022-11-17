@@ -260,13 +260,13 @@ class BalanceCard extends StatelessWidget {
             children: <Widget>[
               const SizedBox(height: 35),
               Row(
-                children: <Widget>[
-                  const SizedBox(width: 5),
-                  const Text(
+                children: const <Widget>[
+                  SizedBox(width: 5),
+                  Text(
                     "Hello User",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: SizedBox(),
                   ),
                   InkWell(
@@ -312,7 +312,7 @@ class BalanceCard extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
+                children: const <Widget>[
                   // _icon(context, Icons.payments_outlined, "Einzahlen"),
                   // _icon(context, Icons.price_change_outlined, "Betrag ändern"),
                   // _icon(

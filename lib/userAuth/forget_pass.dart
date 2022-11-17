@@ -36,7 +36,7 @@ class ForgetPassScreenState extends State<ForgetPassScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: const <Widget>[
                         // card(
                         //   buildUser(context, emailController),
                         // ),

@@ -49,21 +49,3 @@ Widget silberChart(List<SilverHisInfo> liste) {
                 yValueMapper: (SilverHisInfo data, _) => data.price)
           ])));
 }
-
-//  Future<List<GoldHisInfo>> loadChartData()async{
-//   List<int> years = [];
-//   years = await getYears("jahren für die App", jahren);
-//   List<GoldHisInfo> liste = [];
-//      var docSnapshot2 = await FirebaseFirestore.instance
-//       .collection('stockData')
-//       .doc("Gold History")
-//       .get();
-//   if (docSnapshot2.exists) {
-//     Map<String, dynamic>? data = docSnapshot2.data();
-//     liste.add(GoldHisInfo(price: data?["1.preis"], year: years[0]));
-//     liste.add(GoldHisInfo(price: data?["2.preis"], year: years[1]));
-//     liste.add(GoldHisInfo(price: data?["3.preis"], year: years[2]));
-//     liste.add(GoldHisInfo(price: data?["4.preis"], year: years[3]));
-//   }
-//   return liste;
-// }

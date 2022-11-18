@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_x/pagesTools/tools.dart';
 
 /*
 Die Datei bildet den Text für die 
@@ -58,21 +59,7 @@ class Impressumview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
-          ),
-          backgroundColor: const Color.fromARGB(255, 207, 207, 207),
-          toolbarHeight: 80,
-          elevation: 14,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))),
-          centerTitle: true,
-          title: const Text(
-            "Impressum",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: appBar("Impressum"),
         body: ScrollConfiguration(
             behavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),

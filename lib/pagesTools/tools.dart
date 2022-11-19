@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stock_x/animation/refresh_animation.dart';
 
+//Diese bildet die App bar die in mehreren Pages verwednet wird
 AppBar appBar(String text) {
   return AppBar(
     iconTheme: const IconThemeData(
@@ -19,10 +20,10 @@ AppBar appBar(String text) {
   );
 }
 
+//Diese Bildet die loading animation die in mehreren Pages verwednet wird
 Widget loading() {
-  return Scaffold(
-      body: Center(
-          child: Column(
+  return Center(
+      child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       WidgetCircularAnimator(
@@ -41,5 +42,5 @@ Widget loading() {
       ),
       const Text("Daten werden geladen"),
     ],
-  )));
+  ));
 }

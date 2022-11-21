@@ -14,10 +14,10 @@ class Palette with ChangeNotifier {
     textTheme: const TextTheme(
       //Platzhalter für das baldige Stylen der Texte
       headline5: TextStyle(
-        color: Colors.black,
+        color: Color(0xFFF6FDFF),
       ), // Überschrift (appbar)
       subtitle1: TextStyle(
-        color: Color.fromARGB(230, 0, 0, 0),
+        color: Color(0xE6333333),
       ), // Switch Labeltext
       subtitle2: TextStyle(
         color: Color(0xFFF6FDFF),
@@ -27,10 +27,10 @@ class Palette with ChangeNotifier {
       ), // Sliding Panel
       bodyText1: TextStyle(
         color: Color(0xFFF6FDFF),
-      ), // Haupttext2
+      ), // Haupttext
       bodyText2: TextStyle(
-        color: Color.fromARGB(230, 0, 0, 0),
-      ),
+        color: Colors.black,
+      ), // Haupttext2 (Light = Weiß - Dark = Black)
       caption: TextStyle(
         color: Colors.black,
       ),
@@ -50,10 +50,10 @@ class Palette with ChangeNotifier {
     textTheme: const TextTheme(
       //Platzhalter für das baldige Stylen der Texte
       headline5: TextStyle(
-        color: Colors.black,
+        color: Color(0xE6333333),
       ), // Überschrift (appbar)
       subtitle1: TextStyle(
-        color: Color.fromARGB(230, 0, 0, 0),
+        color: Color(0xE6333333),
       ), // Switch Labeltext
       subtitle2: TextStyle(
         color: Color(0xFFF6FDFF),
@@ -62,11 +62,11 @@ class Palette with ChangeNotifier {
         color: Color(0xFFF6FDFF),
       ), // Sliding Panel
       bodyText1: TextStyle(
-        color: Color(0xFFF6FDFF),
-      ), // Haupttext2
+        color: Colors.black,
+      ), // Haupttext (Light = Black - Dark = Weiß)
       bodyText2: TextStyle(
-        color: Color.fromARGB(230, 0, 0, 0),
-      ),
+        color: Color(0xFFF6FDFF),
+      ), // Haupttext2 (Light = Weiß - Dark = Black)
       caption: TextStyle(
         color: Colors.black,
       ),

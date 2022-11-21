@@ -26,7 +26,7 @@ class DarkmodeState extends State<Darkmode> {
       ),
       title: Text(
         "ThemeMode", //AppLocalizations.of(context)!.thememode,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyText1,
       ),
       trailing: Consumer<ThemeProvider>(builder: (context, provider, child) {
         return SizedBox(
@@ -40,21 +40,21 @@ class DarkmodeState extends State<Darkmode> {
                   value: 'light',
                   child: Text(
                     'Light',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 DropdownMenuItem<String>(
                   value: 'dark',
                   child: Text(
                     'Dark',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
                 DropdownMenuItem<String>(
                   value: 'system',
                   child: Text(
                     'System',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               ],

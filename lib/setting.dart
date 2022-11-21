@@ -21,9 +21,9 @@ class Setting extends StatelessWidget {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50))),
           centerTitle: true,
-          title: const Text(
+          title: Text(
             "Settings",
-            style: TextStyle(color: Colors.black),
+            style: Theme.of(context).textTheme.headline5,
           ),
         ),
         body: SafeArea(
@@ -58,7 +58,7 @@ class Setting extends StatelessWidget {
                               ),
                               title: Text(
                                 "Informationen über die Applikation",
-                                style: Theme.of(context).textTheme.bodyText2,
+                                style: Theme.of(context).textTheme.bodyText1,
                               ),
                               onTap: () {
                                 showAboutDialog(

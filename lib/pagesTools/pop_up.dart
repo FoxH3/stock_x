@@ -64,7 +64,7 @@ class TransPupUpview extends StatefulWidget {
 class TransPupUpviewState extends State<TransPupUpview> {
   String dropdownvalue = 'Gold';
   var items = ['Gold', 'Silber'];
-
+  String neuValue = "";
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -152,7 +152,6 @@ class TransPupUpviewState extends State<TransPupUpview> {
   }
 
   Widget _buildfiled() {
-    String neuValue;
     return Card(
         color: const Color.fromARGB(255, 207, 207, 207),
         shape: RoundedRectangleBorder(

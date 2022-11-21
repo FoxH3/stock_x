@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+                              children: const <Widget>[
                                 // card(
                                 //   buildUser(context, mailController),
                                 // ),
@@ -84,6 +84,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               obscureText: _showPassword,
               controller: controller,
               validator: (value) {
+                return null;
+
                 // return Validator.validatePassword(value!, pass, context);
               },
               onChanged: (value) => pass = value,

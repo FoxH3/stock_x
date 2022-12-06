@@ -129,10 +129,6 @@ class BalanceCard extends StatelessWidget {
             color: Colors.grey,
             blurRadius: 2.0, // soften the shadow
             spreadRadius: 2.0, //extend the shadow
-            // offset: Offset(
-            //   1.0, // Move to right 5  horizontally
-            //   1.0, // Move to bottom 5 Vertically
-            // ),
           )
         ],
       ),
@@ -141,12 +137,10 @@ class BalanceCard extends StatelessWidget {
             topLeft: Radius.circular(50),
             bottomRight: Radius.circular(50),
           ),
-          //BorderRadius.all(Radius.circular(40)),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * .27,
             color: Colors.blue,
-            // LightColor.navyBlue1,
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -191,11 +185,6 @@ class BalanceCard extends StatelessWidget {
                             fontSize: 15,
                             // LightColor.yellow.withAlpha(200)
                           ),
-                          // style: GoogleFonts.mulish(
-                          //     textStyle: Theme.of(context).textTheme.headline4,
-                          //     fontSize: 15,
-                          //     fontWeight: FontWeight.w600,
-                          //     color: LightColor.lightNavyBlue),
                         ),
                         Text(
                           '15,000 €',

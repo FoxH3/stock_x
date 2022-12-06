@@ -201,38 +201,33 @@ class BalanceCard extends StatelessWidget {
                   ],
                 ),
                 const Positioned(
-                  left: -170,
-                  top: -170,
+                  left: -185,
+                  top: -200,
                   child: CircleAvatar(
                     radius: 130,
-                    backgroundColor: Colors.blue,
-                    //LightColor.lightBlue2,
+                    backgroundColor: Color.fromARGB(165, 255, 255, 255),
                   ),
                 ),
                 const Positioned(
-                  left: -160,
+                  left: -200,
                   top: -190,
                   child: CircleAvatar(
                     radius: 130,
                     backgroundColor: Color.fromARGB(255, 105, 182, 245),
-                    //LightColor.lightBlue1,
                   ),
                 ),
                 const Positioned(
-                  right: -170,
+                  right: -210,
                   bottom: -170,
-                  child: CircleAvatar(radius: 130, backgroundColor: Colors.black
-                      // LightColor.yellow2,
-                      ),
+                  child:
+                      CircleAvatar(radius: 130, backgroundColor: Colors.black),
                 ),
                 const Positioned(
-                  right: -160,
+                  right: -200,
                   bottom: -190,
                   child:
-                      CircleAvatar(radius: 130, backgroundColor: Colors.yellow
-                          //LightColor.yellow,
-                          ),
-                )
+                      CircleAvatar(radius: 130, backgroundColor: Colors.yellow),
+                ),
               ],
             ),
           )),

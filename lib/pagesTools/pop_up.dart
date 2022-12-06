@@ -5,7 +5,6 @@ import 'package:slider_button/slider_button.dart';
 popupRegister(BuildContext context, double height, var klass) {
   return showDialog(
       context: context,
-      // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
             shape: RoundedRectangleBorder(

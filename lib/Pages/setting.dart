@@ -65,7 +65,7 @@ class Setting extends StatelessWidget {
                                   context: context,
                                   applicationIcon: const FlutterLogo(),
                                   applicationLegalese: 'Legalese',
-                                  applicationName: 'App Name',
+                                  applicationName: 'Stock X',
                                   applicationVersion: 'version 1.0.0',
                                 );
                               }))),

@@ -1,8 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
+/*
+modelClass für edelmetall informationen
+*/
 class MetalInfo {
-  //modal class for Person object
-  String metal, currency, exchange;
+  String time, metal, currency, exchange;
   double zahlSteigung,
       prozentSteigung,
       price_gram_24k,
@@ -13,7 +15,8 @@ class MetalInfo {
   // ignore: prefer_typing_uninitialized_variables
   var ask, bid;
   MetalInfo(
-      {required this.metal,
+      {required this.time,
+      required this.metal,
       required this.currency,
       required this.exchange,
       required this.ask,
@@ -28,6 +31,7 @@ class MetalInfo {
 
   factory MetalInfo.fromJson(Map<String, dynamic> infoJson) {
     return MetalInfo(
+      time: infoJson['time'] ?? "",
       metal: infoJson['metal'] ?? "",
       currency: infoJson['currency'] ?? "",
       exchange: infoJson['exchange'] ?? "",
@@ -45,6 +49,7 @@ class MetalInfo {
 
   Map<String, dynamic> toJson() {
     return {
+      "time": time,
       "metal": metal,
       "currency": currency,
       "exchange": exchange,

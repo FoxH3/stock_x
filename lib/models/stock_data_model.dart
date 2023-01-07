@@ -1,11 +1,12 @@
-// ignore_for_file: non_constant_identifier_names
+/*
+modelClass für Aktien informationen
+*/
 
 class StockInfo {
-  //modal class for Person object
   String name,
       symbol,
       currency,
-      exchange_timezone,
+      exchangeTimezone,
       exchange,
       datetime,
       open,
@@ -18,7 +19,7 @@ class StockInfo {
     required this.name,
     required this.symbol,
     required this.currency,
-    required this.exchange_timezone,
+    required this.exchangeTimezone,
     required this.exchange,
     required this.datetime,
     required this.open,
@@ -33,7 +34,7 @@ class StockInfo {
       name: infoJson['name'] ?? "",
       symbol: infoJson['symbol'] ?? "",
       currency: infoJson['currency'] ?? "",
-      exchange_timezone: infoJson['exchange_timezone'] ?? "",
+      exchangeTimezone: infoJson['exchange_timezone'] ?? "",
       exchange: infoJson['exchange'] ?? "",
       datetime: infoJson['datetime'] ?? "",
       open: infoJson['open'] ?? "",
@@ -49,7 +50,7 @@ class StockInfo {
       "name": name,
       "symbol": symbol,
       "currency": currency,
-      "exchange_timezone": exchange_timezone,
+      "exchange_timezone": exchangeTimezone,
       "exchange": exchange,
       "datetime": datetime,
       "open": open,

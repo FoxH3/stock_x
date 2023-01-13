@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_x/animation/refresh_animation.dart';
-import 'package:stock_x/services/flutterfire_database.dart';
-import 'package:stock_x/services/provider/encryption.dart';
+import 'package:stock_x/services/provider/flutterfire_darabase.dart';
 
 /*
 Die Datei ist für das Bilden

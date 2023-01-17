@@ -19,3 +19,12 @@ Future<bool> signIn(String email, String password) async {
     return false;
   }
 }
+
+Future<bool> resetPassword(String mail) async {
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: mail.trim());
+    return true;
+  } on FirebaseException {
+    return false;
+  }
+}

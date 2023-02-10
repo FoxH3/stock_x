@@ -258,6 +258,7 @@ Future<dynamic> fetchData(context) async {
   }
 }
 
+//Methode dient dazu die Daten in die Datenbank zu laden.
 Future<void> pushData(List goldInfo, List silverInfo, List stockInfo,
     List goldHistory, List silverHistory) async {
   List stocksItems = [];

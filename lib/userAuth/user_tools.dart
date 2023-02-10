@@ -379,9 +379,9 @@ popupKeyEingabe(BuildContext context, TextEditingController keyController,
                 prefs.setString("privatKey", keyController.text);
                 Navigator.pop(context);
               } else {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: const Text("Falsche PrivatKey"),
-                  backgroundColor: Colors.green.shade300,
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Falsche PrivatKey"),
+                  backgroundColor: Colors.red,
                 ));
               }
             },

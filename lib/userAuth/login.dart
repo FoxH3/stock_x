@@ -1,6 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_x/pages/e_wallet.dart';
+import 'package:stock_x/services/provider/encryption.dart';
+import 'package:stock_x/userAuth/flutterfire_auth.dart';
+import 'package:stock_x/userAuth/forget_pass.dart';
+import 'package:stock_x/userAuth/register.dart';
+import 'package:stock_x/userAuth/user_tools.dart';
 
 /*
 Die Datei ist für das Bilden der Login Page,
@@ -11,21 +20,59 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreen> createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final TextEditingController mailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController privatKeyController = TextEditingController();
   bool _showPassword = true;
+
+  Future<void> login() async {
+    late String dbHash;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool registerBool = await signIn(mailController.text, passController.text);
+    if (registerBool == true) {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      var collection = FirebaseFirestore.instance.collection('userData');
+      var docSnapshot = await collection.doc(uid).get();
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? data = docSnapshot.data();
+        dbHash = data?["userHash"];
+
+        if (Encryption.keyHashTest(
+                prefs.getString("privatKey").toString(), dbHash) ==
+            true) {
+          prefs.setBool("login", true);
+          Navigator.pop(context);
+          setState(() {
+            const Wallet();
+          });
+        } else {
+          popupKeyEingabe(context, privatKeyController, dbHash);
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Angegebene Datan sind falsch"),
+        backgroundColor: Colors.red,
+      ));
+    }
+    if (prefs.getString("privatKey")!.isEmpty) {
+      popupKeyEingabe(context, privatKeyController, dbHash);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: buildAppBar(),
       body: SizedBox(
         width: double.infinity,
         child: Column(
           children: <Widget>[
+            underAppBar("Login", "bitte melden sie sich an"),
             Expanded(
                 child: Container(
                     decoration: const BoxDecoration(
@@ -38,19 +85,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          //card(buildUser(context, mailController)),
-                          //  card(buildPassword(passController.text)),
-                          SizedBox(height: 20),
-                          //  buildButton("login", login, 250, 20, 15, context),
-                          SizedBox(height: 10),
-                          // buildButton("Kein Account ?", registerNavigate, 150,
-                          //   10, 10, context),
-                          SizedBox(
+                        children: <Widget>[
+                          card(buildUser(context, mailController)),
+                          card(buildPassword(passController.text)),
+                          const SizedBox(height: 20),
+                          buildButton("login", login, 250, 20, 15, context),
+                          const SizedBox(height: 10),
+                          buildButton("Kein Account ?", registerNavigate, 150,
+                              10, 10, context),
+                          const SizedBox(
                             height: 10,
                           ),
-                          // buildButton("Passwort vergessen ?",
-                          //     passForgetNavigate, 120, 10, 10, context),
+                          buildButton("Passwort vergessen ?",
+                              passForgetNavigate, 120, 10, 10, context),
                         ],
                       ),
                     )))
@@ -60,14 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+//für das weiterleiten auf Register Page
   void registerNavigate() {
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (context) => const RegisterScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const RegisterScreen()));
   }
 
+//für das weiterleiten auf die Passwort vergessen Page
   void passForgetNavigate() {
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (context) => const ForgetPassScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ForgetPassScreen()));
   }
 
   ///Bildet den Passwort-Eingabebereich
@@ -109,7 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget card(Widget cild) {
+//Widget genereit das User eingabe beriche duch übernahme
+//andere Widgets.
+Widget card(Widget child) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SizedBox(
@@ -123,6 +174,6 @@ Widget card(Widget cild) {
             child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: Colors.black,
-                child: SizedBox(child: cild)))),
+                child: SizedBox(child: child)))),
   );
 }

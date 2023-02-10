@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:slider_button/slider_button.dart';
+import 'package:stock_x/services/provider/encryption.dart';
+import 'package:stock_x/userAuth/login.dart';
 
 /*
 Die Datei besteht aus allen Widgets, die 
@@ -19,6 +24,7 @@ PreferredSizeWidget buildAppBar() {
   );
 }
 
+//Bildet das Text der Unter die Appbar kommt.
 Widget underAppBar(String pageName, String pageInfo) {
   return Padding(
     padding: const EdgeInsets.all(20),
@@ -120,47 +126,185 @@ Widget buildText(BuildContext context, String text, double fontSize) {
 }
 
 /// Bildet die PupUp fenster die nach der Registeration erschient
-popupRegister(BuildContext context, String userName, String passwort) {
+popupKey(BuildContext context) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? key = prefs.getString("privatKey");
   return showDialog(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(
-          "Erfolgreich Regestriert",
-          style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface,
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-        ),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text(
-                "Automatisch angemeldet",
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text(
-              "Ok",
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal),
-            ),
-            onPressed: () {},
-          ),
-        ],
-      );
-    },
-  );
+      context: context,
+      //   barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return
+            // AlertDialog(
+            //   title: Text(
+            //     "Erfolgreich Regestriert",
+            //     style: TextStyle(
+            //         color: Theme.of(context).colorScheme.onSurface,
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            //   content: SingleChildScrollView(
+            //     child: ListBody(
+            //       children: <Widget>[
+            //         Column(
+            //           children: [
+            //             Text(
+            //               "Hier ist ihre Privat Key bitte \nsehr geheim verstecken sie werden es gebrauchen\num auf ihre daten zuzugreifen diese ist nicht zurücksetzbar\n",
+            //               style: TextStyle(
+            //                   color: Theme.of(context).colorScheme.onSurface,
+            //                   fontSize: 18,
+            //                   fontWeight: FontWeight.normal),
+            //             ),
+            //             Row(
+            //               children: [
+            //                 Text(
+            //                   "PrivatKey: $key ",
+            //                   style: TextStyle(
+            //                       color: Theme.of(context).colorScheme.onSurface,
+            //                       fontSize: 18,
+            //                       fontWeight: FontWeight.normal),
+            //                 ),
+            //                 IconButton(
+            //                     onPressed: () async {
+            //                       await Clipboard.setData(
+            //                           ClipboardData(text: key.toString()));
+            //                     },
+            //                     icon: const Icon(Icons.copy))
+            //               ],
+            //             )
+            //           ],
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            //   actions: <Widget>[
+            //     TextButton(
+            //       child: Text(
+            //         "Ok",
+            //         style: TextStyle(
+            //             color: Theme.of(context).colorScheme.onSurface,
+            //             fontSize: 18,
+            //             fontWeight: FontWeight.normal),
+            //       ),
+            //       onPressed: () {
+            //         Navigator.pop(context);
+            //       },
+            //     ),
+            //   ],
+            // );
+
+            Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                child: Stack(children: <Widget>[
+                  Container(
+                    height: 380, //Heith
+                    padding: const EdgeInsets.only(
+                      top: 66 + 16,
+                      bottom: 16,
+                      left: 16,
+                      right: 16,
+                    ),
+                    margin: const EdgeInsets.only(top: 66),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10.0,
+                          offset: Offset(0.0, 10.0),
+                        ),
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Column(
+                            children: [
+                              Text(
+                                "Erfolgreich Regestriert",
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "Hier ist ihre Privat Key bitte \nsehr geheim verstecken sie werden es gebrauchen\num auf ihre daten zuzugreifen diese ist nicht zurücksetzbar\n",
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "PrivatKey: $key ",
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                  height: 50,
+                                  alignment: Alignment.bottomCenter,
+                                  child: SliderButton(
+                                    action: () async {
+                                      await Clipboard.setData(
+                                          ClipboardData(text: key.toString()));
+                                      Navigator.of(context).pop();
+                                    },
+                                    label: const Text(
+                                      "PrivatKey  Kopieren    ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    icon: const Center(
+                                      child: Icon(Icons.copy),
+                                    ),
+                                    buttonColor: const Color.fromARGB(
+                                        255, 207, 207, 207),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 221, 170, 18),
+                                    highlightedColor: Colors.black,
+                                    baseColor: Colors.white,
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 5,
+                    right: 5,
+                    child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 60,
+                        child: SizedBox(
+                            child: ClipOval(
+                          child: Image.asset(
+                            "assets/icons/keyLogo.png",
+                          ),
+                        ))),
+                  ),
+                ]));
+      });
 }
 
 /// Methode bildet Massage die bsp. bei falsche Passwort erschient
@@ -176,5 +320,74 @@ void routeToPage(BuildContext context, var page) {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => page),
+  );
+}
+
+/// Bildet die PupUp fenster die nach der Registeration erschient
+popupKeyEingabe(BuildContext context, TextEditingController keyController,
+    String hash) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return showDialog(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          "Bitte geben sie Ihre Privat key ein",
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                    card(TextFormField(
+                      controller: keyController,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(top: 14),
+                          prefixIcon: Icon(
+                            Icons.key,
+                            color: Colors.black,
+                          ),
+                          hintText: "Privat Schlüssel",
+                          hintStyle: TextStyle(
+                            color: Colors.black,
+                          )),
+                    ))
+                  ]))
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              "bestätigen",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal),
+            ),
+            onPressed: () {
+              if (Encryption.keyHashTest(keyController.text, hash) == true) {
+                prefs.setString("privatKey", keyController.text);
+                Navigator.pop(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: const Text("Falsche PrivatKey"),
+                  backgroundColor: Colors.green.shade300,
+                ));
+              }
+            },
+          ),
+        ],
+      );
+    },
   );
 }

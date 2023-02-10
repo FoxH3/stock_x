@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_x/animation/refresh_animation.dart';
+import 'package:stock_x/services/provider/encryption.dart';
 import 'package:stock_x/services/provider/flutterfire_darabase.dart';
 
 /*
@@ -113,7 +114,124 @@ class BalanceCardState extends State<BalanceCard> {
                                                   MainAxisAlignment.center,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
-                                              children: <Widget>[],
+                                              children: <Widget>[
+                                                const Text(
+                                                  'Ihre Guthaben',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Gold"]
+                                                              .toString()) +
+                                                      " Gramm. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Gold",
+                                                  Colors.yellow,
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Gold"].toString()), snapshot1.data!.docs[4]["price_gram_24k"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Silber"]
+                                                              .toString()) +
+                                                      " Gramm. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Silber",
+                                                  const Color.fromARGB(
+                                                      221, 169, 166, 166),
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Silber"].toString()), snapshot1.data!.docs[6]["price_gram_24k"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Deutsche Telekom"]
+                                                              .toString()) +
+                                                      " Aktie. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Deutsche Telekom",
+                                                  const Color.fromARGB(
+                                                      255, 3, 237, 221),
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Deutsche Telekom"].toString()), snapshot1.data!.docs[3]["close"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Deutsche Post"]
+                                                              .toString()) +
+                                                      " Aktie. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Deutsche Post",
+                                                  const Color.fromARGB(
+                                                      255, 3, 237, 221),
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Deutsche Post"].toString()), snapshot1.data!.docs[2]["close"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Deutsche Bank"]
+                                                              .toString()) +
+                                                      " Aktie. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Deutsche Bank",
+                                                  const Color.fromARGB(
+                                                      255, 3, 237, 221),
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Deutsche Bank"].toString()), snapshot1.data!.docs[1]["close"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                cardText(
+                                                  Encryption.dataDeCrypt(
+                                                          privatKey,
+                                                          data["Allianz"]
+                                                              .toString()) +
+                                                      " Aktie. ",
+                                                  15,
+                                                  Colors.black,
+                                                  "Allianz",
+                                                  const Color.fromARGB(
+                                                      255, 3, 237, 221),
+                                                  'Entspricht:',
+                                                  "${calculate(Encryption.dataDeCrypt(privatKey, data["Allianz"].toString()), snapshot1.data!.docs[0]["close"].toString())} € ",
+                                                  Colors.white,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
                                             ))),
                                     const Positioned(
                                       left: -185,

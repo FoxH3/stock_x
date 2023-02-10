@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:stock_x/userAuth/flutterfire_auth.dart';
+import 'package:stock_x/userAuth/login.dart';
+import 'package:stock_x/userAuth/user_tools.dart';
 
 /*
-Die Datei ist für das Bilden der Registration-Page
-wo der User sich registrieren kann
+Die Datei ist für das Bilden die passwort vergessen
+Page. diese erschient wenn der user seine Passwort 
+zurücksetzten möchte.
 */
 
 class ForgetPassScreen extends StatefulWidget {
@@ -20,34 +23,40 @@ class ForgetPassScreenState extends State<ForgetPassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: buildAppBar(),
         body: SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60),
-                      )),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        // card(
-                        //   buildUser(context, emailController),
-                        // ),
-                        // const SizedBox(height: 20),
-                        // buildButton("Passwort zurücksetzten", resetPass,
-                        //     250, 20, 15, context),
-                      ],
-                    ),
-                  )))
-        ],
-      ),
-    ));
+          width: double.infinity,
+          child: Column(
+            children: <Widget>[
+              underAppBar(
+                  "Password Reset", "Sie können ihre Passwort zurücksetzten"),
+              Expanded(
+                  child: Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(60),
+                            topRight: Radius.circular(60),
+                          )),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            card(
+                              buildUser(context, emailController),
+                            ),
+                            const SizedBox(height: 20),
+                            buildButton("Passwort zurücksetzten", resetPass,
+                                250, 20, 15, context),
+                          ],
+                        ),
+                      )))
+            ],
+          ),
+        ));
   }
+
+//Methode überprüft wird verwednet für die Passwort zurücksetzung.
+  Future<void> resetPass() async {}
 }

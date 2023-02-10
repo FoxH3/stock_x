@@ -1,10 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:slider_button/slider_button.dart';
+import 'package:stock_x/services/provider/encryption.dart';
+import 'package:stock_x/services/provider/flutterfire_darabase.dart';
 
-/// Bildet die PupUp fenster die nach der Registeration erschient
-popupRegister(BuildContext context, double height, var klass) {
+/*
+Die Datei beinhaltet mehrere Widgets/klassen die 
+für in der E-Wallet Page verwednet wird.
+*/
+
+// Bildet die PupUp für die Transaktionen Buttons in der der e-Wallet
+popup(BuildContext context, double height, var klass, String imageLink) {
   return showDialog(
       context: context,
+      // user must tap button!
       builder: (BuildContext context) {
         return Dialog(
             shape: RoundedRectangleBorder(
@@ -45,7 +55,7 @@ popupRegister(BuildContext context, double height, var klass) {
                     child: SizedBox(
                         child: ClipOval(
                       child: Image.asset(
-                        "assets/icons/budget.png",
+                        imageLink,
                       ),
                     ))),
               ),
@@ -53,8 +63,11 @@ popupRegister(BuildContext context, double height, var klass) {
       });
 }
 
+// Folgende Class bildet die einzahlen/betrag ändern popup
+// in der e-Wallet Page
 class TransPupUpview extends StatefulWidget {
-  const TransPupUpview({Key? key}) : super(key: key);
+  final String pay;
+  const TransPupUpview({Key? key, required this.pay}) : super(key: key);
 
   @override
   State<TransPupUpview> createState() => TransPupUpviewState();
@@ -62,62 +75,122 @@ class TransPupUpview extends StatefulWidget {
 
 class TransPupUpviewState extends State<TransPupUpview> {
   String dropdownvalue = 'Gold';
-  var items = ['Gold', 'Silber'];
   String neuValue = "";
+  late String privatKey;
+  var items = [
+    'Gold',
+    "Silber",
+    "Deutsche Telekom",
+    "Deutsche Post",
+    "Deutsche Bank",
+    "Allianz"
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    getPrivKey();
+  }
+
+  getPrivKey() async {
+    privatKey = await getKey();
+  }
+
+  final Stream<DocumentSnapshot> _usersStream = FirebaseFirestore.instance
+      .collection("userData")
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .snapshots();
+
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Text(
-          "E-Wallet verwaltung",
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        const Text(
-          "Ihre Jetzige Budge beträgt:" "\n gr. Gold" "\n gr. Silber",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 16.0,
-          ),
-        ),
-        const SizedBox(height: 24.0),
-        _buildMetal(),
-        const SizedBox(
-          height: 5,
-        ),
-        _buildfiled(),
-        const SizedBox(
-          height: 20,
-        ),
-        Container(
-            height: 50,
-            alignment: Alignment.bottomCenter,
-            child: SliderButton(
-              action: () {
-                Navigator.of(context).pop();
-              },
-              label: const Text(
-                "Transaktion durchführen",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              icon: const Center(
-                child: Icon(Icons.start),
-              ),
-              buttonColor: const Color.fromARGB(255, 207, 207, 207),
-              backgroundColor: Colors.green,
-              highlightedColor: Colors.black,
-              baseColor: Colors.white,
-            )),
-      ],
-    ));
+        child: StreamBuilder(
+            stream: _usersStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                dynamic data = snapshot.data;
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      "E-Wallet verwaltung",
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    const Text(
+                      "Ihre Jetzige Budge beträgt:",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      dropdownvalue +
+                          ":" +
+                          " " +
+                          Encryption.dataDeCrypt(
+                              privatKey, data[dropdownvalue.toString()]),
+
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                    _buildMetal(),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    _buildfiled(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                        height: 50,
+                        alignment: Alignment.bottomCenter,
+                        child: SliderButton(
+                          action: () {
+                            if (widget.pay == "Einzahlen") {
+                              payIn(dropdownvalue.toString(),
+                                  neuValue.toString());
+                            } else {
+                              setUserData(dropdownvalue.toString(),
+                                  neuValue.toString());
+                            }
+
+                            Navigator.of(context).pop();
+                          },
+                          label: const Text(
+                            "Transaktion durchführen",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          icon: const Center(
+                            child: Icon(Icons.start),
+                          ),
+                          buttonColor: const Color.fromARGB(255, 207, 207, 207),
+                          backgroundColor: Colors.green,
+                          highlightedColor: Colors.black,
+                          baseColor: Colors.white,
+                        )),
+                  ],
+                );
+              } else {
+                return const Center(child: Text("Keine Daten"));
+              }
+            }));
   }
 
+  //bildet die Dropdown Widget in die einzahlen/betrag ändern popup
   Widget _buildMetal() {
     return Card(
         color: const Color.fromARGB(255, 207, 207, 207),
@@ -132,7 +205,7 @@ class TransPupUpviewState extends State<TransPupUpview> {
                 width: 300,
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton(
-                    dropdownColor: Theme.of(context).colorScheme.surfaceTint,
+                    dropdownColor: const Color.fromARGB(255, 207, 207, 207),
                     style: const TextStyle(color: Colors.black),
                     value: dropdownvalue,
                     items: items.map((String items) {
@@ -150,6 +223,7 @@ class TransPupUpviewState extends State<TransPupUpview> {
                 ))));
   }
 
+  //bildet die eingabefeld Widget in die einzahlen/betrag ändern popup
   Widget _buildfiled() {
     return Card(
         color: const Color.fromARGB(255, 207, 207, 207),
@@ -180,6 +254,8 @@ class TransPupUpviewState extends State<TransPupUpview> {
   }
 }
 
+// Folgende Class bildet die wallet leeren popup
+// in der e-Wallet Page
 class DeletePupUpview extends StatefulWidget {
   const DeletePupUpview({Key? key}) : super(key: key);
 
@@ -218,6 +294,7 @@ class DeletePupUpviewState extends State<DeletePupUpview> {
             alignment: Alignment.bottomCenter,
             child: SliderButton(
               action: () {
+                removeWallet();
                 Navigator.of(context).pop();
               },
               label: const Text(

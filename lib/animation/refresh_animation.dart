@@ -1,6 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+
+/*
+Die Datei ist für das Bilden
+die loading Animation die in verschiednene klassen verwendet wird 
+zb. beim warten bis die daten laden.
+*/
 
 class WidgetCircularAnimator extends StatefulWidget {
   const WidgetCircularAnimator({
@@ -15,9 +20,8 @@ class WidgetCircularAnimator extends StatefulWidget {
 
 class WidgetAnimatorState extends State<WidgetCircularAnimator>
     with TickerProviderStateMixin {
-  late Animation<double> animation1;
-  late Animation<double> animation2;
-  late AnimationController controller1;
+  late Animation<double> animation;
+  late AnimationController controller;
 
   @override
   void initState() {
@@ -40,7 +44,7 @@ class WidgetAnimatorState extends State<WidgetCircularAnimator>
 
   @override
   void dispose() {
-    controller1.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -57,7 +61,7 @@ class WidgetAnimatorState extends State<WidgetCircularAnimator>
   Center _firstArc() {
     return Center(
       child: RotationTransition(
-        turns: animation1,
+        turns: animation,
         child: CustomPaint(
           painter: Arc1Painter(color: Colors.red, iconsSize: 3),
           child: const SizedBox(
@@ -70,14 +74,14 @@ class WidgetAnimatorState extends State<WidgetCircularAnimator>
   }
 
   void initAnimations() {
-    controller1 =
+    controller =
         AnimationController(duration: const Duration(seconds: 30), vsync: this);
 
-    animation1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: controller1,
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: controller,
         curve: const Interval(0.0, 1.0, curve: Curves.linear)));
 
-    controller1.repeat();
+    controller.repeat();
   }
 }
 

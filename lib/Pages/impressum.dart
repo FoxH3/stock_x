@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stock_x/pagesTools/tools.dart';
+import 'package:stock_x/pagesTools/price_info_comm.dart';
 
 /*
 Die Datei bildet den Text für die 
@@ -61,8 +61,7 @@ class Impressumview extends StatelessWidget {
     return Scaffold(
         appBar: appBar("Impressum"),
         body: ScrollConfiguration(
-            behavior:
-                const MaterialScrollBehavior().copyWith(overscroll: false),
+            behavior: const MaterialScrollBehavior().copyWith(overscroll: true),
             child: SingleChildScrollView(
                 child: Column(
               children: <Widget>[

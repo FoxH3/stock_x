@@ -1,6 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:stock_x/userAuth/flutterfire_auth.dart';
+import 'package:stock_x/userAuth/login.dart';
+import 'package:stock_x/userAuth/user_tools.dart';
+import 'package:stock_x/userAuth/validator.dart';
 
 /*
 Die Datei ist für das Bilden der Registration-Page
@@ -26,12 +29,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: buildAppBar(),
         body: Form(
             key: _formKey,
             child: SizedBox(
               width: double.infinity,
               child: Column(
                 children: <Widget>[
+                  underAppBar("Register", "Sie können sich Regestrerien"),
                   Expanded(
                       child: Container(
                           decoration: const BoxDecoration(
@@ -44,27 +49,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                // card(
-                                //   buildUser(context, mailController),
-                                // ),
-                                // card(
-                                //   buildPassword(
-                                //       "Password", password, passController),
-                                // ),
-                                // card(
-                                //   buildPassword("Password wiederholen",
-                                //       returnPassword, returnPassController),
-                                // ),
-                                // const SizedBox(height: 20),
-                                // buildButton("Account erstellen", registration,
-                                //     250, 20, 15, context),
+                              children: <Widget>[
+                                card(
+                                  buildUser(context, mailController),
+                                ),
+                                card(
+                                  buildPassword(
+                                      "Password", password, passController),
+                                ),
+                                const SizedBox(height: 20),
+                                buildButton("Account erstellen", registration,
+                                    250, 20, 15, context),
                               ],
                             ),
                           )))
                 ],
               ),
             )));
+  }
+
+//Methode wird für das Regestereien verwednet.
+  Future<void> registration() async {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text("Daten werden verarbeitet"),
+        backgroundColor: Colors.green.shade300,
+      ));
+
+      bool registerBool =
+          await register(mailController.text, passController.text);
+      if (registerBool == true) {
+        popupKey(context);
+        Navigator.pop(context);
+      }
+      if (registerBool == false) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("User schon vorhanden"),
+          backgroundColor: Colors.red,
+        ));
+        // }
+      }
+    }
   }
 
   ///Bildet den  Passwort-Eingabebereich
@@ -84,9 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               obscureText: _showPassword,
               controller: controller,
               validator: (value) {
-                return null;
-
-                // return Validator.validatePassword(value!, pass, context);
+                return Validator.validatePass(value!, pass);
               },
               onChanged: (value) => pass = value,
               decoration: InputDecoration(

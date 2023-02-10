@@ -1,77 +1,154 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stock_x/pagesTools/balance_card.dart';
 import 'package:stock_x/pagesTools/pop_up.dart';
+import 'package:stock_x/userAuth/login.dart';
 
 /*
 Die Datei ist für das Bilden
-der Setting Page in der App
+die e-Wallet Page in der App
 */
 
-class Wallet extends StatelessWidget {
-  const Wallet({Key? key}) : super(key: key);
+class Wallet extends StatefulWidget {
+  const Wallet({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<Wallet> createState() => WalletState();
+}
+
+class WalletState extends State<Wallet> {
+  bool screenSwitch = false;
+  String mail = "";
+
+//überprüft ob der user schon angemeldet war
+  Stream<bool> getScreen() async* {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("login") == true) {
+      setState(() {
+        screenSwitch = true;
+      });
+      yield true;
+    } else {
+      setState(() {
+        screenSwitch = false;
+      });
+      yield false;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getMail();
+  }
+
+//der mail von angemeldete user wird geholt
+  getMail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    mail = prefs.getString("logMail")!;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: SingleChildScrollView(
-      child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 35),
-              Row(
-                children: <Widget>[
-                  const SizedBox(width: 5),
-                  const Text(
-                    "Hello User",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  InkWell(
-                    child: Icon(
-                      Icons.logout,
-                      size: 30,
-                      color: Theme.of(context).iconTheme.color,
+        body: StreamBuilder(
+      stream: getScreen(),
+      builder: (context, snapshot) {
+        if (snapshot.data == true) {
+          return eWallet(logout, context, const BalanceCard());
+        } else {
+          return Stack(
+            children: [
+              Center(
+                  child: SizedBox(
+                child: eWallet(
+                  null,
+                  context,
+                  Container(
+                    height: 250,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        bottomRight: Radius.circular(50),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(188, 33, 149, 243),
+                          blurRadius: 2.0, // soften the shadow
+                          spreadRadius: 2.0, //extend the shadow
+                        )
+                      ],
                     ),
-                    onTap: () {},
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              const Text("My wallet",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(
-                height: 20,
-              ),
-              const BalanceCard(),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text("Operationen",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  _icon(context, Icons.payments_outlined, "Einzahlen"),
-                  _icon(context, Icons.price_change_outlined, "Betrag ändern"),
-                  _icon(
-                      context, Icons.delete_forever_outlined, "Wallet leeren"),
-                ],
+                  ),
+                ),
+              )),
+              Center(
+                child: ClipRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.grey.shade200.withOpacity(0.5)),
+                      child: Center(
+                        child: Column(children: [
+                          const SizedBox(
+                            height: 250,
+                          ),
+                          const Text(
+                            "Um Auf die Wallet zuzugreifen bitte sich anmelden",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ElevatedButton(
+                              style: ButtonStyle(
+                                  elevation:
+                                      MaterialStateProperty.all<double>(0.5),
+                                  padding: MaterialStateProperty.all<EdgeInsets>(
+                                      const EdgeInsets.all(10)),
+                                  backgroundColor: MaterialStateProperty.all<
+                                          Color>(
+                                      const Color.fromARGB(255, 207, 207, 207)),
+                                  shape:
+                                      MaterialStateProperty.all<OutlinedBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)))),
+                              onPressed: () {
+                                toLogin(context);
+                              },
+                              child: const FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
-          )),
-    )));
+          );
+        }
+      },
+    ));
   }
 
-  Widget _icon(context, IconData icon, String text) {
+//bildet die icons in der wallet bereich diese sind die einzahlen,
+// betrag öndern und Wallet leeren
+  Widget icon(context, IconData icon, String text) {
     return Column(
       children: <Widget>[
         InkWell(
@@ -80,13 +157,16 @@ class Wallet extends StatelessWidget {
           ),
           onTap: () {
             if (text == "Einzahlen") {
-              popupRegister(context, 420, const TransPupUpview());
+              popup(context, 420, const TransPupUpview(pay: "Einzahlen"),
+                  "assets/icons/budget.png");
             }
             if (text == "Betrag ändern") {
-              popupRegister(context, 420, const TransPupUpview());
+              popup(context, 420, const TransPupUpview(pay: "Betrag ändern"),
+                  "assets/icons/budget.png");
             }
             if (text == "Wallet leeren") {
-              popupRegister(context, 250, const DeletePupUpview());
+              popup(context, 250, const DeletePupUpview(),
+                  "assets/icons/budget.png");
             }
           },
           child: Container(
@@ -111,154 +191,63 @@ class Wallet extends StatelessWidget {
       ],
     );
   }
-}
 
-class BalanceCard extends StatelessWidget {
-  const BalanceCard({Key? key}) : super(key: key);
+//die Methode dient für das abmelden er user
+  void logout(context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    mail = "";
+    await prefs.remove("logMail");
+    await prefs.remove("login");
+    setState(() {});
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(50),
-          bottomRight: Radius.circular(50),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 2.0, // soften the shadow
-            spreadRadius: 2.0, //extend the shadow
-          )
-        ],
-      ),
-      child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(50),
-            bottomRight: Radius.circular(50),
-          ),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .27,
-            color: Colors.blue,
-            child: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      'Ihre Guthaben',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                        //  LightColor.lightNavyBlue
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          '6,354 gr. ',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(
-                          ' Gold',
-                          style: TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.yellow
-                              // LightColor.yellow.withAlpha(200)
-                              ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Text(
-                          'Entspricht: ',
-                          style: TextStyle(
-                            fontSize: 15,
-                            // LightColor.yellow.withAlpha(200)
-                          ),
-                        ),
-                        Text(
-                          '15,000 €',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-                const Positioned(
-                  left: -185,
-                  top: -200,
-                  child: CircleAvatar(
-                    radius: 130,
-                    backgroundColor: Color.fromARGB(165, 255, 255, 255),
-                  ),
-                ),
-                const Positioned(
-                  left: -200,
-                  top: -190,
-                  child: CircleAvatar(
-                    radius: 130,
-                    backgroundColor: Color.fromARGB(255, 105, 182, 245),
-                  ),
-                ),
-                const Positioned(
-                  right: -210,
-                  bottom: -170,
-                  child:
-                      CircleAvatar(radius: 130, backgroundColor: Colors.black),
-                ),
-                const Positioned(
-                  right: -200,
-                  bottom: -190,
-                  child:
-                      CircleAvatar(radius: 130, backgroundColor: Colors.yellow),
-                ),
-              ],
-            ),
-          )),
+//Methode wird für das navigieren in die login page verwendet
+  toLogin(context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
     );
   }
 
-  Widget demoWallet() {
+//diese bildet das eigenltiche e wallet
+  Widget eWallet(var method, context, Widget widget) {
     return SafeArea(
         child: SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const SizedBox(height: 35),
+              const SizedBox(height: 25),
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: Wrap(children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "Hello, $mail",
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                      ],
+                    ),
+                  ])),
               Row(
-                children: const <Widget>[
-                  SizedBox(width: 5),
-                  Text(
-                    "Hello User",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Expanded(
-                    child: SizedBox(),
-                  ),
+                children: [
+                  const Text("Auslogen"),
                   InkWell(
                     child: Icon(
                       Icons.logout,
                       size: 30,
-                      //  color: Theme.of(context).iconTheme.color,
+                      color: Theme.of(context).iconTheme.color,
                     ),
+                    onTap: () {
+                      method(context);
+                    },
                   )
                 ],
               ),
@@ -270,22 +259,7 @@ class BalanceCard extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 250,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(188, 33, 149, 243),
-                      blurRadius: 2.0, // soften the shadow
-                      spreadRadius: 2.0, //extend the shadow
-                    )
-                  ],
-                ),
-              ),
+              widget,
               const SizedBox(
                 height: 20,
               ),
@@ -296,11 +270,10 @@ class BalanceCard extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const <Widget>[
-                  // _icon(context, Icons.payments_outlined, "Einzahlen"),
-                  // _icon(context, Icons.price_change_outlined, "Betrag ändern"),
-                  // _icon(
-                  //     context, Icons.delete_forever_outlined, "Wallet leeren"),
+                children: <Widget>[
+                  icon(context, Icons.payments_outlined, "Einzahlen"),
+                  icon(context, Icons.price_change_outlined, "Betrag ändern"),
+                  icon(context, Icons.delete_forever_outlined, "Wallet leeren"),
                 ],
               ),
             ],

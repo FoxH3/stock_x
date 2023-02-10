@@ -107,60 +107,6 @@ class SettingState extends State<Setting> {
                                           applicationVersion: 'version 1.0.0',
                                         );
                                       }))),
-                          // Card(
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(50),
-                          //     ),
-                          //     clipBehavior: Clip.antiAlias,
-                          //     child: ListTile(
-                          //         leading: const Icon(
-                          //           Icons.key,
-                          //           color: Colors.black,
-                          //         ),
-                          //         title: Text(
-                          //           "App Passwort Aktivieren",
-                          //           style:
-                          //               Theme.of(context).textTheme.bodyText2,
-                          //         ),
-                          //         trailing: Container(
-                          //           margin: const EdgeInsets.only(right: 6.0),
-                          //           child: Switch(
-                          //             value: isSwitchedFT,
-                          //             onChanged: (bool value) {
-                          //               setState(() {
-                          //                 isSwitchedFT = value;
-                          //                 saveSwitchState(value);
-                          //               });
-                          //               if (isSwitchedFT == true) {
-                          //                 screenLockCreate(
-                          //                   title: const Text(
-                          //                       "App-Passwort eingeben",
-                          //                       style: TextStyle(
-                          //                           fontWeight: FontWeight.bold,
-                          //                           fontSize: 20)),
-                          //                   confirmTitle: const Text(
-                          //                       "App-Passwort wiederholen",
-                          //                       style: TextStyle(
-                          //                           fontWeight: FontWeight.bold,
-                          //                           fontSize: 20)),
-                          //                   context: context,
-                          //                   onConfirmed: (value) {
-                          //                     savePasswordState(value);
-                          //                     Navigator.pop(context);
-                          //                   },
-                          //                   onCancelled: () {
-                          //                     isSwitchedFT = false;
-                          //                     saveSwitchState(false);
-                          //                     setState(() {});
-                          //                     Navigator.pop(context);
-                          //                   },
-                          //                 );
-                          //               } else {
-                          //                 removePass();
-                          //               }
-                          //             },
-                          //           ),
-                          //         ))),
                           screenSwitch
                               ? Card(
                                   color: Colors.red,
@@ -202,39 +148,4 @@ class SettingState extends State<Setting> {
             }));
   }
 
-// //holt die switch value für app passwort
-//   getSwitchValues() async {
-//     isSwitchedFT = (await getSwitchState())!;
-//     setState(() {});
-//   }
-
-// //speichert die switch value für app passwort local
-//   Future<bool> saveSwitchState(bool value) async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setBool("switchState", value);
-
-//     return prefs.setBool("switchState", value);
-//   }
-
-// //holt die switch value für app passwort
-//   Future<bool?> getSwitchState() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     bool? isSwitchedFT = prefs.getBool("switchState");
-
-//     return isSwitchedFT;
-//   }
-
-// //Speichert die von user angegebene app passwort local
-//   Future<bool> savePasswordState(String value) async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.setString("appPassword", value);
-
-//     return prefs.setString("appPassword", value);
-//   }
-
-// //entfernt die von user gespeicherte app passwort
-//   removePass() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     prefs.remove("appPassword");
-//   }
 }

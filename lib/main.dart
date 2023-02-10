@@ -1,9 +1,15 @@
+import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_x/Pages/setting.dart';
 import 'package:stock_x/config/palette.dart';
 import 'package:stock_x/pages/overview.dart';
 import 'package:stock_x/pages/impressum.dart';
 import 'package:stock_x/pages/e_wallet.dart';
+import 'package:stock_x/services/provider/client.dart';
+import 'package:stock_x/services/provider/flutterfire_darabase.dart';
 import 'config/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 import 'services/provider/locale_provider.dart';
@@ -11,46 +17,62 @@ import 'services/provider/darkmode_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 //import 'package:flutter_gen/gen_l10n/app_localization.dart';
+import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) => MultiProvider(
+//         providers: [
+//           ChangeNotifierProvider<LocaleProvider>(
+//               create: (_) => LocaleProvider(const Locale("en"))),
+//           ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
+//           ChangeNotifierProvider<ThemeProvider>(
+//             create: (_) => ThemeProvider()..initialize(),
+//           )
+//         ],
+//         builder: (context, child) {
+//           final languageProvider = Provider.of<LocaleProvider>(context);
+//           return Consumer<ThemeProvider>(builder: (context, provider, child) {
+//             return ScreenUtilInit(
+//                 builder: ((context, child) => MaterialApp(
+//                       theme: Palette.lightTheme,
+//                       darkTheme: Palette.darkTheme,
+//                       themeMode: provider.themeMode,
+//                       locale: languageProvider.locale,
+//                       supportedLocales: L10n.all,
+//                       localizationsDelegates: const [
+//                         //AppLocalizations.delegate,
+//                         GlobalMaterialLocalizations.delegate,
+//                         GlobalWidgetsLocalizations.delegate
+//                       ],
+//                       home: const MyHomePage(),
+//                     )),
+//                 designSize: const Size(360, 690));
+//           });
+//         },
+//       );
+// }
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider<LocaleProvider>(
-              create: (_) => LocaleProvider(const Locale("en"))),
-          ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
-          ChangeNotifierProvider<ThemeProvider>(
-            create: (_) => ThemeProvider()..initialize(),
-          )
-        ],
-        builder: (context, child) {
-          final languageProvider = Provider.of<LocaleProvider>(context);
-          return Consumer<ThemeProvider>(builder: (context, provider, child) {
-            return ScreenUtilInit(
-                builder: ((context, child) => MaterialApp(
-                      theme: Palette.lightTheme,
-                      darkTheme: Palette.darkTheme,
-                      themeMode: provider.themeMode,
-                      locale: languageProvider.locale,
-                      supportedLocales: L10n.all,
-                      localizationsDelegates: const [
-                        //AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate
-                      ],
-                      home: const MyHomePage(),
-                    )),
-                designSize: const Size(360, 690));
-          });
-        },
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromARGB(255, 238, 238, 238)),
+      debugShowCheckedModeBanner: false,
+      home: const MyHomePage(),
+    );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -62,25 +84,34 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   int _selectedScreenIndex = 0;
+  late bool screenSwitching = false;
   final List _screens = [
     {"screen": const Overview(), "title": "Overview"},
     {"screen": const Wallet(), "title": "E_wallet"},
   ];
+  String appPass = "";
+  bool isAppAktiv = false;
 
   @override
   initState() {
     super.initState();
-    //loadData();
-    // fetchData();
-    // fetchAktienData();
-    // fetchMetallHistData();
-
-//Dies wird als zeitstempel für die Daten verwendet
-    // DateTime dateToday = new DateTime.now();
-    // String date = dateToday.toString().substring(0, 10);
-    // print(DateFormat('dd-MM-yyyy').format(DateTime.now()));
+    loadHisDataFromDB();
+    getPassValues();
   }
 
+//Die von user eingesetzte AppPass wird geholt.
+  getPassValues() async {
+    appPass = (await getPassowrdState())!;
+    setState(() {});
+  }
+
+//Überprüft ob die AppPasswort aktiviert ist.
+  getAktivState() async {
+    isAppAktiv = (await getAktivValues())!;
+    setState(() {});
+  }
+
+//für die Screen Switch zwischen (Overview und E-Wallet)
   void _selectScreen(int index) {
     setState(() {
       _selectedScreenIndex = index;
@@ -89,6 +120,95 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (appPass != "" && isAppAktiv == false) {
+      return Scaffold(
+        body: Stack(
+          children: [
+            Center(
+                child: SizedBox(
+              child: buildApp(),
+            )),
+            Center(
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey.shade200.withOpacity(0.5)),
+                    child: Center(
+                      child: Column(children: [
+                        const SizedBox(
+                          height: 300,
+                        ),
+                        const Text(
+                          "App Ensperen um auf die App zuzugreifen",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                elevation:
+                                    MaterialStateProperty.all<double>(0.5),
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                    const EdgeInsets.all(10)),
+                                backgroundColor: MaterialStateProperty.all<
+                                        Color>(
+                                    const Color.fromARGB(255, 207, 207, 207)),
+                                shape:
+                                    MaterialStateProperty.all<OutlinedBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)))),
+                            onPressed: () {
+                              screenLock(
+                                title: const Text("App-Passwort eingeben",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                                context: context,
+                                correctString: appPass,
+
+                                //customizedButtonTap: () async => await localAuth(context),
+                                // onOpened: () async => await localAuth(context),
+                                onUnlocked: (() {
+                                  setState(() {
+                                    isAppAktiv = true;
+                                  });
+                                  Navigator.pop(context);
+                                  buildApp();
+                                }),
+                              );
+                            },
+                            child: const FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "App Entsperen",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ))
+                      ]),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return buildApp();
+    }
+  }
+
+//Bildet das eigentliche App
+  Widget buildApp() {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 207, 207, 207),
@@ -209,5 +329,21 @@ class MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+//App Passwort wird geholt als String gespeichert
+  Future<String?> getPassowrdState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? appPass = prefs.getString("appPassword");
+
+    return appPass;
+  }
+
+//App Passwort status wird geholt als Boolean gespeichert
+  Future<bool?> getAktivValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? isAppAktiv = prefs.getBool("appAktiv");
+
+    return isAppAktiv;
   }
 }

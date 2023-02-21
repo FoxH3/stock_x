@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 import 'package:stock_x/pagesTools/price_info_comm.dart';
+import 'package:stock_x/widgets/darkmode.dart';
+import 'package:flutter/src/rendering/box.dart';
 
 /*
 Die Datei ist für das Bilden
@@ -64,21 +66,7 @@ class SettingState extends State<Setting> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               clipBehavior: Clip.antiAlias,
-                              child: GlowingOverscrollIndicator(
-                                  axisDirection: AxisDirection.down,
-                                  color: Colors.black,
-                                  child: ListTile(
-                                      leading: const Icon(
-                                        Icons.info_outline,
-                                        color: Colors.black,
-                                      ),
-                                      title: Text(
-                                        "Theme Mode",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      ),
-                                      onTap: () {}))),
+                              child: Darkmode()),
                           Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
@@ -147,5 +135,4 @@ class SettingState extends State<Setting> {
               }
             }));
   }
-
 }

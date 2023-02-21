@@ -65,14 +65,36 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 238, 238, 238)),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
-    );
-  }
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider<LocaleProvider>(
+              create: (_) => LocaleProvider(const Locale("en"))),
+          ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (_) => ThemeProvider()..initialize(),
+          )
+        ],
+        builder: (context, child) {
+          final languageProvider = Provider.of<LocaleProvider>(context);
+          return Consumer<ThemeProvider>(builder: (context, provider, child) {
+            return ScreenUtilInit(
+                builder: ((context, child) => MaterialApp(
+                      theme: Palette.lightTheme,
+                      darkTheme: Palette.darkTheme,
+                      themeMode: provider.themeMode,
+                      locale: languageProvider.locale,
+                      supportedLocales: L10n.all,
+                      localizationsDelegates: const [
+                        //AppLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate
+                      ],
+                      home: const MyHomePage(),
+                    )),
+                designSize: const Size(360, 690));
+          });
+        },
+      );
 }
 
 class MyHomePage extends StatefulWidget {

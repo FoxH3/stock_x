@@ -274,25 +274,24 @@ class MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             Icon(
                               Icons.settings,
                               size: 20,
-                              color: Colors.black45,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Settings',
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ],
                         ),
-                        const Divider()
+                        Divider(
+                          color: Theme.of(context).colorScheme.secondary,
+                        )
                       ],
                     )),
                 PopupMenuItem(
@@ -301,25 +300,24 @@ class MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
+                          children: [
                             Icon(
                               Icons.account_balance_outlined,
                               size: 20,
-                              color: Colors.black45,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Impressum',
-                              style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ],
                         ),
-                        const Divider()
+                        Divider(
+                          color: Theme.of(context).colorScheme.secondary,
+                        )
                       ],
                     )),
               ];

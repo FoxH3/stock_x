@@ -109,7 +109,7 @@ class MyHomePageState extends State<MyHomePage> {
   late bool screenSwitching = false;
   final List _screens = [
     {"screen": const Overview(), "title": "Overview"},
-    {"screen": const Wallet(), "title": "E_wallet"},
+    {"screen": const Wallet(), "title": "E_Wallet"},
   ];
   String appPass = "";
   bool isAppAktiv = false;
@@ -166,7 +166,7 @@ class MyHomePageState extends State<MyHomePage> {
                           height: 300,
                         ),
                         const Text(
-                          "App Ensperen um auf die App zuzugreifen",
+                          "App Ensperren um auf die App zuzugreifen",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
@@ -209,7 +209,7 @@ class MyHomePageState extends State<MyHomePage> {
                             child: const FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
-                                "App Entsperen",
+                                "App entsperen",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -345,7 +345,7 @@ class MyHomePageState extends State<MyHomePage> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.info_outlined), label: 'übersicht'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.euro_outlined), label: 'E-wallet'),
+                  icon: Icon(Icons.euro_outlined), label: 'E-Wallet'),
             ],
           ),
         ),

@@ -278,7 +278,7 @@ class MyHomePageState extends State<MyHomePage> {
                             Icon(
                               Icons.settings,
                               size: 20,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                             const SizedBox(
                               width: 5,
@@ -304,7 +304,7 @@ class MyHomePageState extends State<MyHomePage> {
                             Icon(
                               Icons.account_balance_outlined,
                               size: 20,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                             const SizedBox(
                               width: 5,
@@ -330,7 +330,7 @@ class MyHomePageState extends State<MyHomePage> {
           borderRadius: const BorderRadius.only(topRight: Radius.circular(40)),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color.fromARGB(255, 207, 207, 207),
+            backgroundColor: Theme.of(context).colorScheme.surfaceTint,
             iconSize: 20.0,
             selectedIconTheme: const IconThemeData(size: 28.0),
             selectedItemColor: Colors.black,

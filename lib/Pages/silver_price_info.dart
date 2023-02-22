@@ -77,7 +77,8 @@ class InfoViewState extends State<SilverInfoView> {
                                               bottomRight: Radius.circular(50),
                                             ),
                                             color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
+                                                .colorScheme
+                                                .surfaceTint,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(7),

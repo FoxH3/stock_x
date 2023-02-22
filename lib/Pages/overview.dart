@@ -196,12 +196,12 @@ class OverviewState extends State<Overview> {
         ),
         elevation: 5,
         child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
               ),
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.surfaceTint,
             ),
             child: InkWell(
               splashColor: Colors.transparent,

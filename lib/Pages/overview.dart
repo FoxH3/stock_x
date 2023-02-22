@@ -64,8 +64,9 @@ class OverviewState extends State<Overview> {
                                       SizedBox(
                                         child: Text(
                                             "Aktualisiert am: ${snapshot.data!.docs[4]["time"]}",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold)),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1),
                                       ),
                                       cardInfo(
                                           icon("assets/icons/gold.png", 75, 75),

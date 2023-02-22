@@ -66,7 +66,7 @@ class SettingState extends State<Setting> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               clipBehavior: Clip.antiAlias,
-                              child: Darkmode()),
+                              child: const Darkmode()),
                           Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
@@ -76,15 +76,17 @@ class SettingState extends State<Setting> {
                                   axisDirection: AxisDirection.down,
                                   color: Colors.black,
                                   child: ListTile(
-                                      leading: const Icon(
+                                      leading: Icon(
                                         Icons.account_balance_outlined,
-                                        color: Colors.black,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                       ),
                                       title: Text(
-                                        "Informationabouttheapplication....",
+                                        "Informationen über die Applikation",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText2,
+                                            .bodyText1,
                                       ),
                                       onTap: () {
                                         showAboutDialog(

@@ -78,20 +78,20 @@ class MyApp extends StatelessWidget {
           final languageProvider = Provider.of<LocaleProvider>(context);
           return Consumer<ThemeProvider>(builder: (context, provider, child) {
             return ScreenUtilInit(
-                builder: ((context, child) => MaterialApp(
-                      theme: Palette.lightTheme,
-                      darkTheme: Palette.darkTheme,
-                      themeMode: provider.themeMode,
-                      locale: languageProvider.locale,
-                      supportedLocales: L10n.all,
-                      localizationsDelegates: const [
-                        //AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate
-                      ],
-                      home: const MyHomePage(),
-                    )),
-                designSize: const Size(360, 690));
+              builder: ((context, child) => MaterialApp(
+                    theme: Palette.lightTheme,
+                    darkTheme: Palette.darkTheme,
+                    themeMode: provider.themeMode,
+                    locale: languageProvider.locale,
+                    supportedLocales: L10n.all,
+                    localizationsDelegates: const [
+                      //AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate
+                    ],
+                    home: const MyHomePage(),
+                  )),
+            );
           });
         },
       );

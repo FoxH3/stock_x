@@ -71,12 +71,14 @@ class InfoViewState extends State<GoldInfoView> {
                                       axisDirection: AxisDirection.down,
                                       color: Colors.black,
                                       child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               topLeft: Radius.circular(50),
                                               bottomRight: Radius.circular(50),
                                             ),
-                                            color: Colors.white,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(7),
@@ -122,52 +124,28 @@ class InfoViewState extends State<GoldInfoView> {
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),
-                                                                                  price("${snapshot.data!.docs[4]["metal"].toString()} Gold", 255, 255, 200, 0),
+                                                                                  price("${snapshot.data!.docs[4]["metal"].toString()} Gold"),
                                                                                   const SizedBox(
                                                                                     height: 5,
                                                                                   ),
-                                                                                  price("Währung ${snapshot.data!.docs[4]["currency"].toString()}", 255, 255, 200, 0),
-                                                                                  price("exchange ${snapshot.data!.docs[4]["exchange"].toString()}", 255, 255, 200, 0),
-                                                                                  price("Steigerung : ${snapshot.data!.docs[4]["chp"].toString()}% (${snapshot.data!.docs[4]["ch"].toString()})", 255, 255, 200, 0),
+                                                                                  price("Währung ${snapshot.data!.docs[4]["currency"].toString()}"),
+                                                                                  price("exchange ${snapshot.data!.docs[4]["exchange"].toString()}"),
+                                                                                  price("Steigerung : ${snapshot.data!.docs[4]["chp"].toString()}% (${snapshot.data!.docs[4]["ch"].toString()})"),
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),
                                                                                   price(
                                                                                       // snapshot.data!.docs[4]["price_gram_24k"].toString()
                                                                                       "Preis für 24K : ${snapshot.data!.docs[4]["price_gram_24k"].toString()}"
-                                                                                      " €",
-                                                                                      255,
-                                                                                      255,
-                                                                                      200,
-                                                                                      0),
-                                                                                  price(
-                                                                                      "Preis für 22K : ${snapshot.data!.docs[4]["price_gram_22k"].toString()}"
-                                                                                      " €",
-                                                                                      255,
-                                                                                      255,
-                                                                                      200,
-                                                                                      0),
-                                                                                  price(
-                                                                                      "Preis für 21K : ${snapshot.data!.docs[4]["price_gram_21k"].toString()}"
-                                                                                      " €",
-                                                                                      255,
-                                                                                      255,
-                                                                                      200,
-                                                                                      0),
-                                                                                  price(
-                                                                                      "Preis für 20K : ${snapshot.data!.docs[4]["price_gram_20k"].toString()}"
-                                                                                      " €",
-                                                                                      255,
-                                                                                      255,
-                                                                                      200,
-                                                                                      0),
-                                                                                  price(
-                                                                                      "Preis für 18K : ${snapshot.data!.docs[4]["price_gram_18k"].toString()}"
-                                                                                      " €",
-                                                                                      255,
-                                                                                      255,
-                                                                                      200,
-                                                                                      0),
+                                                                                      " €"),
+                                                                                  price("Preis für 22K : ${snapshot.data!.docs[4]["price_gram_22k"].toString()}"
+                                                                                      " €"),
+                                                                                  price("Preis für 21K : ${snapshot.data!.docs[4]["price_gram_21k"].toString()}"
+                                                                                      " €"),
+                                                                                  price("Preis für 20K : ${snapshot.data!.docs[4]["price_gram_20k"].toString()}"
+                                                                                      " €"),
+                                                                                  price("Preis für 18K : ${snapshot.data!.docs[4]["price_gram_18k"].toString()}"
+                                                                                      " €"),
                                                                                   const SizedBox(
                                                                                     height: 40,
                                                                                   ),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_x/models/stock_data_model.dart';
 import 'package:stock_x/models/stock_history_model.dart';
 import 'package:stock_x/pages/overview.dart';
-import 'package:stock_x/pagesTools/charts.dart';
+//import 'package:stock_x/pagesTools/charts.dart';
 import 'package:stock_x/pagesTools/price_info_comm.dart';
 import 'package:stock_x/services/provider/client.dart';
 
@@ -133,12 +133,14 @@ class StockInfoViewState extends State<StockInfoView> {
                                       axisDirection: AxisDirection.down,
                                       color: Colors.black,
                                       child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               topLeft: Radius.circular(50),
                                               bottomRight: Radius.circular(50),
                                             ),
-                                            color: Colors.white,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(7),
@@ -184,22 +186,22 @@ class StockInfoViewState extends State<StockInfoView> {
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),
-                                                                                  price("Aktien Symbol: " + snapshot.data!.docs[widget.index]["symbol"].toString(), 255, 25, 106, 177),
+                                                                                  price("Aktien Symbol: " + snapshot.data!.docs[widget.index]["symbol"].toString()),
                                                                                   const SizedBox(
                                                                                     height: 5,
                                                                                   ),
-                                                                                  price("Aktien Währung: " + snapshot.data!.docs[widget.index]["currency"].toString(), 255, 25, 106, 177),
-                                                                                  price("Hanelzeit: " + snapshot.data!.docs[widget.index]["exchange_timezone"].toString(), 255, 25, 106, 177),
-                                                                                  price("Excange: " + snapshot.data!.docs[widget.index]["exchange"].toString(), 255, 25, 106, 177),
+                                                                                  price("Aktien Währung: " + snapshot.data!.docs[widget.index]["currency"].toString()),
+                                                                                  price("Hanelzeit: " + snapshot.data!.docs[widget.index]["exchange_timezone"].toString()),
+                                                                                  price("Excange: " + snapshot.data!.docs[widget.index]["exchange"].toString()),
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),
-                                                                                  price("API-Datenzeit: " + snapshot.data!.docs[widget.index]["datetime"].toString(), 255, 25, 106, 177),
-                                                                                  price("offnen mit: " + snapshot.data!.docs[widget.index]["open"].toString(), 255, 25, 106, 177),
-                                                                                  price("Höhste: " + snapshot.data!.docs[widget.index]["high"].toString(), 255, 25, 106, 177),
-                                                                                  price("Geringste: " + snapshot.data!.docs[widget.index]["low"].toString(), 255, 25, 106, 177),
-                                                                                  price("geschlossen mit: " + snapshot.data!.docs[widget.index]["close"].toString(), 255, 25, 106, 177),
-                                                                                  price("Volumen: " + snapshot.data!.docs[widget.index]["volume"].toString(), 255, 25, 106, 177),
+                                                                                  price("API-Datenzeit: " + snapshot.data!.docs[widget.index]["datetime"].toString()),
+                                                                                  price("offnen mit: " + snapshot.data!.docs[widget.index]["open"].toString()),
+                                                                                  price("Höhste: " + snapshot.data!.docs[widget.index]["high"].toString()),
+                                                                                  price("Geringste: " + snapshot.data!.docs[widget.index]["low"].toString()),
+                                                                                  price("geschlossen mit: " + snapshot.data!.docs[widget.index]["close"].toString()),
+                                                                                  price("Volumen: " + snapshot.data!.docs[widget.index]["volume"].toString()),
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),

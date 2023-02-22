@@ -46,14 +46,14 @@ Widget loading() {
   ));
 }
 
-Widget price(var text, int a, int r, int g, int b) {
+Widget price(var text) {
   return Align(
       alignment: Alignment.topLeft,
       child: Wrap(children: <Widget>[
         Text(
           text.toString(),
-          style: TextStyle(
-            color: Color.fromARGB(a, r, g, b),
+          style: const TextStyle(
+            color: Color.fromARGB(255, 0, 0, 0),
             fontSize: 20,
           ),
         ),

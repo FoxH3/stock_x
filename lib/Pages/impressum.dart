@@ -81,14 +81,11 @@ class Impressumview extends StatelessWidget {
                               return ListTile(
                                 title: Text(
                                   inhalt[index]['Zeile'],
-                                  style: Theme.of(context).textTheme.bodyText2,
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               );
                             },
                           ))),
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
               ],
             ))));

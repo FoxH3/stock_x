@@ -18,7 +18,7 @@ class Palette with ChangeNotifier {
         color: Color(0xFFF6FDFF),
       ), // Überschrift (appbar)
       subtitle1: TextStyle(
-        color: Color(0xE6333333),
+        color: Color(0xFFF6FDFF),
       ), // Switch Labeltext
       subtitle2: TextStyle(
         color: Color(0xFFF6FDFF),

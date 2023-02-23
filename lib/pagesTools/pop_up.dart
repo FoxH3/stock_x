@@ -33,7 +33,7 @@ popup(BuildContext context, double height, var klass, String imageLink) {
                 ),
                 margin: const EdgeInsets.only(top: 66),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.secondary,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [

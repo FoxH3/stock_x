@@ -100,9 +100,9 @@ class WalletState extends State<Wallet> {
                           const SizedBox(
                             height: 250,
                           ),
-                          const Text(
+                          Text(
                             "Um Auf die Wallet zuzugreifen bitte sich anmelden",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
                             height: 20,
@@ -173,13 +173,13 @@ class WalletState extends State<Wallet> {
             height: 80,
             width: 80,
             margin: const EdgeInsets.symmetric(vertical: 10),
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+            decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: Color(0xfff3f3f3),
-                      offset: Offset(5, 5),
+                      color: Theme.of(context).colorScheme.tertiary,
+                      offset: const Offset(5, 5),
                       blurRadius: 10)
                 ]),
             child: Icon(icon),
@@ -227,8 +227,7 @@ class WalletState extends State<Wallet> {
                       children: <Widget>[
                         Text(
                           "Hello, $mail",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         const Expanded(
                           child: SizedBox(),
@@ -238,7 +237,10 @@ class WalletState extends State<Wallet> {
                   ])),
               Row(
                 children: [
-                  const Text("Ausloggen"),
+                  Text(
+                    "Ausloggen",
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
                   InkWell(
                     child: Icon(
                       Icons.logout,
@@ -254,8 +256,7 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 height: 25,
               ),
-              const Text("My Wallet",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text("My Wallet", style: Theme.of(context).textTheme.subtitle1),
               const SizedBox(
                 height: 20,
               ),
@@ -263,8 +264,7 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 height: 20,
               ),
-              const Text("Operationen",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text("Operationen", style: Theme.of(context).textTheme.subtitle1),
               const SizedBox(
                 height: 10,
               ),

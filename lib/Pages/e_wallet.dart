@@ -238,7 +238,7 @@ class WalletState extends State<Wallet> {
                   ])),
               Row(
                 children: [
-                  const Text("Auslogen"),
+                  const Text("Ausloggen"),
                   InkWell(
                     child: Icon(
                       Icons.logout,
@@ -254,7 +254,7 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 height: 25,
               ),
-              const Text("My wallet",
+              const Text("My Wallet",
                   style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(
                 height: 20,

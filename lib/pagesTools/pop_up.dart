@@ -24,7 +24,7 @@ popup(BuildContext context, double height, var klass, String imageLink) {
             backgroundColor: Colors.transparent,
             child: Stack(children: <Widget>[
               Container(
-                height: height, //Heith
+                height: height, //Height
                 padding: const EdgeInsets.only(
                   top: 66 + 16,
                   bottom: 16,
@@ -114,7 +114,7 @@ class TransPupUpviewState extends State<TransPupUpview> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     const Text(
-                      "E-Wallet verwaltung",
+                      "E-Wallet Verwaltung",
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.w700,
@@ -122,7 +122,7 @@ class TransPupUpviewState extends State<TransPupUpview> {
                     ),
                     const SizedBox(height: 16.0),
                     const Text(
-                      "Ihre Jetzige Budge beträgt:",
+                      "Ihre jetziges Budget beträgt:",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16.0,

@@ -113,18 +113,22 @@ class TransPupUpviewState extends State<TransPupUpview> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       "E-Wallet Verwaltung",
                       style: TextStyle(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         fontSize: 24.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                    const Text(
+                    Text(
                       "Ihre jetziges Budget beträgt:",
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         fontSize: 16.0,
                       ),
                     ),

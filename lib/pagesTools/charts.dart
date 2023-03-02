@@ -57,3 +57,48 @@ Widget silberChart(List<SilverHisInfo> liste) {
                 yValueMapper: (SilverHisInfo data, _) => data.price)
           ])));
 }
+
+//Folgende klasse bilden die Stock Charts
+class StockChart extends StatefulWidget {
+  final List<StockHisInfo> liste;
+  const StockChart({super.key, required this.liste});
+
+  @override
+  State<StockChart> createState() => StockChartState();
+}
+
+class StockChartState extends State<StockChart> {
+  late TrackballBehavior _trackballBehavior;
+
+  @override
+  void initState() {
+    _trackballBehavior = TrackballBehavior(
+        enable: true, activationMode: ActivationMode.singleTap);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 330,
+        child: Center(
+            child: SfCartesianChart(
+          trackballBehavior: _trackballBehavior,
+          title: ChartTitle(text: "Stock preis Entwicklung"),
+          series: <CandleSeries>[
+            CandleSeries<StockHisInfo, DateTime>(
+                dataSource: widget.liste,
+                xValueMapper: (StockHisInfo liste, _) => liste.datetime,
+                lowValueMapper: (StockHisInfo liste, _) => liste.low,
+                highValueMapper: (StockHisInfo liste, _) => liste.high,
+                openValueMapper: (StockHisInfo liste, _) => liste.open,
+                closeValueMapper: (StockHisInfo liste, _) => liste.close)
+          ],
+          primaryXAxis: DateTimeAxis(
+              dateFormat: DateFormat.yM(),
+              majorGridLines: const MajorGridLines(width: 0)),
+          primaryYAxis: NumericAxis(
+              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+        )));
+  }
+}

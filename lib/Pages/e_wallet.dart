@@ -187,6 +187,7 @@ class WalletState extends State<Wallet> {
         ),
         Text(
           text,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       ],
     );

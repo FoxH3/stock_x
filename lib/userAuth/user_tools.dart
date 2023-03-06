@@ -133,177 +133,114 @@ popupKey(BuildContext context) async {
       context: context,
       //   barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return
-            // AlertDialog(
-            //   title: Text(
-            //     "Erfolgreich Regestriert",
-            //     style: TextStyle(
-            //         color: Theme.of(context).colorScheme.onSurface,
-            //         fontSize: 20,
-            //         fontWeight: FontWeight.bold),
-            //   ),
-            //   content: SingleChildScrollView(
-            //     child: ListBody(
-            //       children: <Widget>[
-            //         Column(
-            //           children: [
-            //             Text(
-            //               "Hier ist ihre Privat Key bitte \nsehr geheim verstecken sie werden es gebrauchen\num auf ihre daten zuzugreifen diese ist nicht zurücksetzbar\n",
-            //               style: TextStyle(
-            //                   color: Theme.of(context).colorScheme.onSurface,
-            //                   fontSize: 18,
-            //                   fontWeight: FontWeight.normal),
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Text(
-            //                   "PrivatKey: $key ",
-            //                   style: TextStyle(
-            //                       color: Theme.of(context).colorScheme.onSurface,
-            //                       fontSize: 18,
-            //                       fontWeight: FontWeight.normal),
-            //                 ),
-            //                 IconButton(
-            //                     onPressed: () async {
-            //                       await Clipboard.setData(
-            //                           ClipboardData(text: key.toString()));
-            //                     },
-            //                     icon: const Icon(Icons.copy))
-            //               ],
-            //             )
-            //           ],
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            //   actions: <Widget>[
-            //     TextButton(
-            //       child: Text(
-            //         "Ok",
-            //         style: TextStyle(
-            //             color: Theme.of(context).colorScheme.onSurface,
-            //             fontSize: 18,
-            //             fontWeight: FontWeight.normal),
-            //       ),
-            //       onPressed: () {
-            //         Navigator.pop(context);
-            //       },
-            //     ),
-            //   ],
-            // );
-
-            Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
+        return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            child: Stack(children: <Widget>[
+              Container(
+                height: 380, //Heith
+                padding: const EdgeInsets.only(
+                  top: 66 + 16,
+                  bottom: 16,
+                  left: 16,
+                  right: 16,
                 ),
-                elevation: 0.0,
-                backgroundColor: Colors.transparent,
-                child: Stack(children: <Widget>[
-                  Container(
-                    height: 380, //Heith
-                    padding: const EdgeInsets.only(
-                      top: 66 + 16,
-                      bottom: 16,
-                      left: 16,
-                      right: 16,
+                margin: const EdgeInsets.only(top: 66),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 10.0),
                     ),
-                    margin: const EdgeInsets.only(top: 66),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: Offset(0.0, 10.0),
-                        ),
-                      ],
-                    ),
-                    child: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          Column(
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Text(
+                            "Erfolgreich Regestriert",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Hier ist ihre Privat Key bitte \nsehr geheim verstecken sie werden es gebrauchen\num auf ihre daten zuzugreifen diese ist nicht zurücksetzbar\n",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          Row(
                             children: [
                               Text(
-                                "Erfolgreich Regestriert",
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "Hier ist ihre Privat Key bitte \nsehr geheim verstecken sie werden es gebrauchen\num auf ihre daten zuzugreifen diese ist nicht zurücksetzbar\n",
+                                "PrivatKey: $key ",
                                 style: TextStyle(
                                     color:
                                         Theme.of(context).colorScheme.onSurface,
                                     fontSize: 18,
                                     fontWeight: FontWeight.normal),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "PrivatKey: $key ",
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                  height: 50,
-                                  alignment: Alignment.bottomCenter,
-                                  child: SliderButton(
-                                    action: () async {
-                                      await Clipboard.setData(
-                                          ClipboardData(text: key.toString()));
-                                      Navigator.of(context).pop();
-                                    },
-                                    label: const Text(
-                                      "PrivatKey  Kopieren    ",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    icon: const Center(
-                                      child: Icon(Icons.copy),
-                                    ),
-                                    buttonColor: const Color.fromARGB(
-                                        255, 207, 207, 207),
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 221, 170, 18),
-                                    highlightedColor: Colors.black,
-                                    baseColor: Colors.white,
-                                  )),
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 5,
-                    right: 5,
-                    child: CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 60,
-                        child: SizedBox(
-                            child: ClipOval(
-                          child: Image.asset(
-                            "assets/icons/keyLogo.png",
                           ),
-                        ))),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              height: 50,
+                              alignment: Alignment.bottomCenter,
+                              child: SliderButton(
+                                action: () async {
+                                  await Clipboard.setData(
+                                      ClipboardData(text: key.toString()));
+                                  Navigator.of(context).pop();
+                                },
+                                label: const Text(
+                                  "PrivatKey  Kopieren    ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                icon: const Center(
+                                  child: Icon(Icons.copy),
+                                ),
+                                buttonColor:
+                                    const Color.fromARGB(255, 207, 207, 207),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 221, 170, 18),
+                                highlightedColor: Colors.black,
+                                baseColor: Colors.white,
+                              )),
+                        ],
+                      )
+                    ],
                   ),
-                ]));
+                ),
+              ),
+              Positioned(
+                left: 5,
+                right: 5,
+                child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 60,
+                    child: SizedBox(
+                        child: ClipOval(
+                      child: Image.asset(
+                        "assets/icons/keyLogo.png",
+                      ),
+                    ))),
+              ),
+            ]));
       });
 }
 

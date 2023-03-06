@@ -58,5 +58,22 @@ class ForgetPassScreenState extends State<ForgetPassScreen> {
   }
 
 //Methode überprüft wird verwednet für die Passwort zurücksetzung.
-  Future<void> resetPass() async {}
+  Future<void> resetPass() async {
+    bool registerBool = await resetPassword(emailController.text);
+    if (registerBool == true) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text("Email wurde versendet"),
+        backgroundColor: Colors.green.shade300,
+      ));
+      Future.delayed(const Duration(seconds: 2), () async {
+        Navigator.pop(context);
+      });
+    }
+    if (registerBool == false) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("E-mail exsistiert nicht"),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
 }

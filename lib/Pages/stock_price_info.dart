@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:stock_x/models/stock_data_model.dart';
 import 'package:stock_x/models/stock_history_model.dart';
 import 'package:stock_x/pages/overview.dart';
+import 'package:stock_x/pagesTools/charts.dart';
 //import 'package:stock_x/pagesTools/charts.dart';
 import 'package:stock_x/pagesTools/price_info_comm.dart';
 import 'package:stock_x/services/provider/client.dart';
@@ -206,15 +207,15 @@ class StockInfoViewState extends State<StockInfoView> {
                                                                                   const SizedBox(
                                                                                     height: 20,
                                                                                   ),
-                                                                                  // StreamBuilder(
-                                                                                  //     stream: readData(),
-                                                                                  //     builder: (context, snapshot1) {
-                                                                                  //       if (snapshot1.hasData) {
-                                                                                  //         return StockChart(liste: stockHisInfo);
-                                                                                  //       } else {
-                                                                                  //         return loading();
-                                                                                  //       }
-                                                                                  //     })
+                                                                                  StreamBuilder(
+                                                                                      stream: readData(),
+                                                                                      builder: (context, snapshot1) {
+                                                                                        if (snapshot1.hasData) {
+                                                                                          return StockChart(liste: stockHisInfo);
+                                                                                        } else {
+                                                                                          return loading();
+                                                                                        }
+                                                                                      })
                                                                                 ],
                                                                               )
                                                                             ],

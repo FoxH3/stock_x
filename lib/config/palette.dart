@@ -9,8 +9,8 @@ class Palette with ChangeNotifier {
       secondary: Color(0xFFF6FDFF), //dark=grau - light=light
       tertiary: Color(0xFFF6FDFF), //dark=weiß - light=grau
       surfaceVariant: Color(0xFFF6FDFF), //Unbenutzt
-      surfaceTint: Color.fromARGB(230, 199, 195,
-          195), //Background für Aktien / Gold / Silber Detail Container
+      surfaceTint: Color.fromARGB(230, 247, 246,
+          246), //Background für Aktien / Gold / Silber Detail Container
     ),
     textTheme: const TextTheme(
       //Platzhalter für das baldige Stylen der Texte
@@ -46,7 +46,7 @@ class Palette with ChangeNotifier {
       secondary: Color(0xE6333333), //dark=grau - light=light
       tertiary: Color(0xE6333333), // dark=weiß - light=grau
       surfaceVariant: Color(0xFFF6FDFF), //Unbenutzt
-      surfaceTint: Color.fromARGB(230, 199, 195, 195), //Unbenutzt
+      surfaceTint: Color.fromARGB(230, 247, 246, 246), //Unbenutzt
     ),
     textTheme: const TextTheme(
       //Platzhalter für das baldige Stylen der Texte

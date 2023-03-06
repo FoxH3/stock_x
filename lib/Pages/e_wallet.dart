@@ -101,7 +101,7 @@ class WalletState extends State<Wallet> {
                             height: 250,
                           ),
                           Text(
-                            "Um Auf die Wallet zuzugreifen bitte sich anmelden",
+                            "Um Auf die Wallet zuzugreifen melden sie sich bitte an",
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
@@ -256,7 +256,7 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 height: 25,
               ),
-              Text("My Wallet", style: Theme.of(context).textTheme.subtitle1),
+              Text("My Wallet", style: Theme.of(context).textTheme.bodyText1),
               const SizedBox(
                 height: 20,
               ),
@@ -264,7 +264,7 @@ class WalletState extends State<Wallet> {
               const SizedBox(
                 height: 20,
               ),
-              Text("Operationen", style: Theme.of(context).textTheme.subtitle1),
+              Text("Operationen", style: Theme.of(context).textTheme.bodyText1),
               const SizedBox(
                 height: 10,
               ),

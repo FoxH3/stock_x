@@ -103,14 +103,15 @@ class SettingState extends State<Setting> {
                               ),
                               clipBehavior: Clip.antiAlias,
                               child: ListTile(
-                                  leading: const Icon(
+                                  leading: Icon(
                                     Icons.key,
-                                    color: Colors.black,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                                   title: Text(
                                     "App Passwort Aktivieren",
                                     style:
-                                        Theme.of(context).textTheme.bodyText2,
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                   trailing: Container(
                                     margin: const EdgeInsets.only(right: 6.0),
@@ -162,15 +163,17 @@ class SettingState extends State<Setting> {
                                       axisDirection: AxisDirection.down,
                                       color: Colors.black,
                                       child: ListTile(
-                                          leading: const Icon(
+                                          leading: Icon(
                                             Icons.logout,
-                                            color: Colors.black,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                           ),
                                           title: Text(
                                             "Abmelden",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText2,
+                                                .bodyText1,
                                           ),
                                           onTap: () async {
                                             final SharedPreferences prefs =

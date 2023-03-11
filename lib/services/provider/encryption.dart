@@ -25,12 +25,6 @@ class Encryption {
     return c1.toString();
   }
 
-  //aus Hash und Privet Key wird verschlüsselt
-  static String dataCrypt(String data, String key) {
-    String secretKey = key; //Privat key
-    return Encryptor.encrypt(secretKey, data).toString();
-  }
-
 //überprüft ob das von user angegebene PrivatKey stimmt.
   static bool keyHashTest(String key, String hash) {
     //in if Statment ist die gehschte Pass von User aus der DB
@@ -41,6 +35,12 @@ class Encryption {
     } else {
       return false;
     }
+  }
+
+  //aus Hash und Privet Key wird verschlüsselt
+  static String dataCrypt(String data, String key) {
+    String secretKey = key; //Privat key
+    return Encryptor.encrypt(secretKey, data).toString();
   }
 
   //Daten dechiffrieren

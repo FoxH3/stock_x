@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:stock_x/userAuth/flutterfire_auth.dart';
 import 'package:stock_x/userAuth/login.dart';

@@ -66,7 +66,21 @@ class SettingState extends State<Setting> {
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               clipBehavior: Clip.antiAlias,
-                              child: const Darkmode()),
+                              child: GlowingOverscrollIndicator(
+                                  axisDirection: AxisDirection.down,
+                                  color: Colors.black,
+                                  child: ListTile(
+                                      leading: const Icon(
+                                        Icons.info_outline,
+                                        color: Colors.black,
+                                      ),
+                                      title: Text(
+                                        "Theme Mode",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                      ),
+                                      onTap: () {}))),
                           Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
@@ -76,17 +90,15 @@ class SettingState extends State<Setting> {
                                   axisDirection: AxisDirection.down,
                                   color: Colors.black,
                                   child: ListTile(
-                                      leading: Icon(
+                                      leading: const Icon(
                                         Icons.account_balance_outlined,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
+                                        color: Colors.black,
                                       ),
                                       title: Text(
-                                        "Informationen über die Applikation",
+                                        "Informationen über die App",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyText1,
+                                            .bodyText2,
                                       ),
                                       onTap: () {
                                         showAboutDialog(
@@ -103,15 +115,14 @@ class SettingState extends State<Setting> {
                               ),
                               clipBehavior: Clip.antiAlias,
                               child: ListTile(
-                                  leading: Icon(
+                                  leading: const Icon(
                                     Icons.key,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                    color: Colors.black,
                                   ),
                                   title: Text(
                                     "App Passwort Aktivieren",
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyText2,
                                   ),
                                   trailing: Container(
                                     margin: const EdgeInsets.only(right: 6.0),
@@ -163,17 +174,15 @@ class SettingState extends State<Setting> {
                                       axisDirection: AxisDirection.down,
                                       color: Colors.black,
                                       child: ListTile(
-                                          leading: Icon(
+                                          leading: const Icon(
                                             Icons.logout,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
+                                            color: Colors.black,
                                           ),
                                           title: Text(
                                             "Abmelden",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1,
+                                                .bodyText2,
                                           ),
                                           onTap: () async {
                                             final SharedPreferences prefs =

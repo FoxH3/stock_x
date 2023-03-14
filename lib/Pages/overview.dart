@@ -64,9 +64,8 @@ class OverviewState extends State<Overview> {
                                       SizedBox(
                                         child: Text(
                                             "Aktualisiert am: ${snapshot.data!.docs[4]["time"]}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold)),
                                       ),
                                       cardInfo(
                                           icon("assets/icons/gold.png", 75, 75),
@@ -197,12 +196,12 @@ class OverviewState extends State<Overview> {
         ),
         elevation: 5,
         child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
               ),
-              color: Theme.of(context).colorScheme.surfaceTint,
+              color: Colors.white,
             ),
             child: InkWell(
               splashColor: Colors.transparent,

@@ -1,22 +1,12 @@
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stock_x/Pages/setting.dart';
-import 'package:stock_x/config/palette.dart';
 import 'package:stock_x/pages/overview.dart';
 import 'package:stock_x/pages/impressum.dart';
 import 'package:stock_x/pages/e_wallet.dart';
-import 'package:stock_x/services/provider/client.dart';
 import 'package:stock_x/services/provider/flutterfire_darabase.dart';
-import 'config/l10n/l10n.dart';
-import 'package:provider/provider.dart';
-import 'services/provider/locale_provider.dart';
-import 'services/provider/darkmode_provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
 
 Future main() async {
@@ -30,37 +20,46 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider<LocaleProvider>(
-              create: (_) => LocaleProvider(const Locale("en"))),
-          ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
-          ChangeNotifierProvider<ThemeProvider>(
-            create: (_) => ThemeProvider()..initialize(),
-          )
-        ],
-        builder: (context, child) {
-          final languageProvider = Provider.of<LocaleProvider>(context);
-          return Consumer<ThemeProvider>(builder: (context, provider, child) {
-            return ScreenUtilInit(
-              builder: ((context, child) => MaterialApp(
-                    theme: Palette.lightTheme,
-                    darkTheme: Palette.darkTheme,
-                    themeMode: provider.themeMode,
-                    locale: languageProvider.locale,
-                    supportedLocales: L10n.all,
-                    localizationsDelegates: const [
-                      //AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate
-                    ],
-                    home: const MyHomePage(),
-                  )),
-            );
-          });
-        },
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromARGB(255, 238, 238, 238)),
+      debugShowCheckedModeBanner: false,
+      home: const MyHomePage(),
+    );
+  }
 }
+// @override
+// Widget build(BuildContext context) => MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider<LocaleProvider>(
+//             create: (_) => LocaleProvider(const Locale("en"))),
+//         ChangeNotifierProvider<ColorProvider>(create: (_) => ColorProvider()),
+//         ChangeNotifierProvider<ThemeProvider>(
+//           create: (_) => ThemeProvider()..initialize(),
+//         )
+//       ],
+//       builder: (context, child) {
+//         final languageProvider = Provider.of<LocaleProvider>(context);
+//         return Consumer<ThemeProvider>(builder: (context, provider, child) {
+//           return ScreenUtilInit(
+//             builder: ((context, child) => MaterialApp(
+//                   theme: Palette.lightTheme,
+//                   darkTheme: Palette.darkTheme,
+//                   themeMode: provider.themeMode,
+//                   locale: languageProvider.locale,
+//                   supportedLocales: L10n.all,
+//                   localizationsDelegates: const [
+//                     //AppLocalizations.delegate,
+//                     GlobalMaterialLocalizations.delegate,
+//                     GlobalWidgetsLocalizations.delegate
+//                   ],
+//                   home: const MyHomePage(),
+//                 )),
+//           );
+//         });
+//       },
+//     );
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -239,24 +238,25 @@ class MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.settings,
                               size: 20,
-                              color: Theme.of(context).colorScheme.tertiary,
+                              color: Colors.black45,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Settings',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
-                        Divider(
-                          color: Theme.of(context).colorScheme.secondary,
-                        )
+                        const Divider()
                       ],
                     )),
                 PopupMenuItem(
@@ -265,24 +265,25 @@ class MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Icon(
                               Icons.account_balance_outlined,
                               size: 20,
-                              color: Theme.of(context).colorScheme.tertiary,
+                              color: Colors.black45,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Impressum',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
-                        Divider(
-                          color: Theme.of(context).colorScheme.secondary,
-                        )
+                        const Divider()
                       ],
                     )),
               ];
@@ -295,7 +296,7 @@ class MyHomePageState extends State<MyHomePage> {
           borderRadius: const BorderRadius.only(topRight: Radius.circular(40)),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Theme.of(context).colorScheme.surfaceTint,
+            backgroundColor: const Color.fromARGB(255, 207, 207, 207),
             iconSize: 20.0,
             selectedIconTheme: const IconThemeData(size: 28.0),
             selectedItemColor: Colors.black,

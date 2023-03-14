@@ -24,7 +24,7 @@ popup(BuildContext context, double height, var klass, String imageLink) {
             backgroundColor: Colors.transparent,
             child: Stack(children: <Widget>[
               Container(
-                height: height, //Height
+                height: height, //Heith
                 padding: const EdgeInsets.only(
                   top: 66 + 16,
                   bottom: 16,
@@ -33,7 +33,7 @@ popup(BuildContext context, double height, var klass, String imageLink) {
                 ),
                 margin: const EdgeInsets.only(top: 66),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Colors.white,
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
@@ -113,22 +113,18 @@ class TransPupUpviewState extends State<TransPupUpview> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
-                      "E-Wallet Verwaltung",
+                    const Text(
+                      "E-Wallet verwaltung",
                       style: TextStyle(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
                         fontSize: 24.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     const SizedBox(height: 16.0),
-                    Text(
-                      "Ihre jetziges Budget beträgt:",
+                    const Text(
+                      "Ihre Jetzige Budge beträgt:",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
                         fontSize: 16.0,
                       ),
                     ),
